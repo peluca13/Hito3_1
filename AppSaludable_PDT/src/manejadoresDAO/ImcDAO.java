@@ -13,12 +13,13 @@ import java.util.LinkedList;
 public class ImcDAO {
 
 	private static final String INSERT_IMC = "INSERT INTO IMC (ID_IMC,FECHA,ALTURA,PESO,ID_USUARIO) VALUES (?,?,?,?,?)";
+	private static final String INSERT_IMC_US = "INSERT INTO IMC (ID_IMC,ALTURA,PESO,ID_USUARIO) VALUES (?,?,?,?)";
 	private static final String ALL_IMC = "SELECT * FROM IMC";
 	private static final String UPDATE_IMC = "UPDATE IMC SET FECHA=?,ALTURA=?,PESO=?,ID_USUARIO=? WHERE ID_IMC=?";
 	private static final String DELETE_IMC = "DELETE FROM IMC WHERE ID_IMC=?";
 	private static final String IMC_ID = "SELECT * FROM IMC WHERE ID_IMC=?";
 	
-	//Insertar IMC pasado por parámetro.
+	//Insertar IMC pasado por parámetro Personal Institución.
 	public static boolean insert(Imc imc){
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC);
@@ -39,6 +40,27 @@ public class ImcDAO {
 		}
 		
 	}
+	
+	//Insertar IMC pasado por parámetro Usuario común.
+		public static boolean insert2(Imc imc){
+			try{
+				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC_US);
+				statement.setInt(1, imc.getIdImc());
+				statement.setDouble(2, imc.getAltura());
+				statement.setDouble(3, imc.getPeso());
+				statement.setInt(4, imc.getUsuario().getIdUsuario());
+															
+				int retorno = statement.executeUpdate();
+										
+				return retorno>0;
+					
+			}
+			catch(SQLException e){
+				e.printStackTrace();
+				return false;
+			}
+			
+		}
 	
 	//Editar IMC pasado por parámetro.
 	public static boolean edit(Imc imc){
