@@ -139,7 +139,7 @@ public class ImcDAO {
 		Date fecha = new Date(resultado.getDate("FECHA").getTime());
 		double altura = resultado.getDouble("ALTURA");
 		double peso = resultado.getDouble("PESO");
-		int idUsaurio = resultado.getInt("ID_USUARIO");
+		int idUsuario = resultado.getInt("ID_USUARIO");
 		Usuario usuario = null;
 		usuario = UsuarioDAO.find(idUsuario);
 		Imc imc = new Imc(idImc,fecha,altura,peso,usuario);
