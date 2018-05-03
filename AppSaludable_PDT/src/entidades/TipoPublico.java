@@ -4,20 +4,20 @@ public enum TipoPublico {
 	TODOS(1,"Todos"),NINOS(2,"Niños"),ADULTOS(3,"Adultos");
 	
 	private int id;
-	private String tipo;
+	private String nombre;
 	
 	//constructor
-	private TipoPublico(int id,String tipo) {
+	private TipoPublico(int id,String nombre) {
 		this.id=id;
-		this.tipo=tipo;
+		this.nombre=nombre;
 	}
 	
 	//getters
 	public int getId() {
 		return id;
 	}
-	public String getTipo() {
-		return tipo;
+	public String getNombre() {
+		return nombre;
 	}
 
 }

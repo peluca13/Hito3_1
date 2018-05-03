@@ -13,13 +13,13 @@ public class Usuario {
 	private String correoElec;
 	private TipoPublico tipoPublico;
 	private TipoReceta tipoReceta;
-	private int rol;
+	private Rol rol;
 	private String contrasena;
 	private String nomUsuario;
 	
 	//constructor
 	public Usuario(int idUsuario,String documento,String nombre,String apellido,Date fecNac,String genero,String correoElec,
-			TipoPublico tipoPublico,TipoReceta tipoReceta,int rol,String contrasena,String nomUsuario) {
+			TipoPublico tipoPublico,TipoReceta tipoReceta,Rol rol,String contrasena,String nomUsuario) {
 		super();
 		this.idUsuario=idUsuario;
 		this.documento = documento;
@@ -91,10 +91,10 @@ public class Usuario {
 	public void setTipoReceta(TipoReceta tipoReceta) {
 		this.tipoReceta = tipoReceta;
 	}
-	public int getRol() {
+	public Rol getRol() {
 		return rol;
 	}
-	public void setRol(int rol) {
+	public void setRol(Rol rol) {
 		this.rol=rol;
 	}
 	public String getContrasena() {
