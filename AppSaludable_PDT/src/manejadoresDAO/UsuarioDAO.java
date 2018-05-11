@@ -12,8 +12,8 @@ import java.util.LinkedList;
 
 public class UsuarioDAO {
 
-	private static final String LOGIN_ID_ROL = "SELECT ROL.ID_ROL,USUARIO.NOM_USUARIO,USUARIO.CONTRASENA FROM USUARIO INNER JOIN ROL ON USUARIO.ROL = ROL.ID_ROL WHERE USUARIO.NOM_USUARIO = ? AND USUARIO.CONTRASENA = ?";
-	private static final String INSERT_USUARIO = "INSERT INTO IMC (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ID_ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String LOGIN = "SELECT ROL,NOM_USUARIO,CONTRASENA FROM USUARIO WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
+	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOMBRE=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
@@ -21,9 +21,9 @@ public class UsuarioDAO {
 	private static final String USUARIO_ID = "SELECT * FROM USUARIO WHERE ID_USUARIO=?";
 	
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
-		public static Usuario findLogin(String nomUsuario,String contrasena){
+		public static Usuario login(String nomUsuario,String contrasena){
 			try{
-				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(LOGIN_ID_ROL);
+				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(LOGIN);
 				statement.setString(1, nomUsuario);
 				statement.setString(2, contrasena);
 				ResultSet resultado = statement.executeQuery();
@@ -49,7 +49,7 @@ public class UsuarioDAO {
 			statement.setString(5, usuario.getGenero());
 			statement.setString(6, usuario.getContrasena());
 			statement.setString(7, usuario.getCorreoElec());
-			statement.setInt(8, usuario.getRol().getIdRol());
+			statement.setString(8, usuario.getRol().name());
 			statement.setDate(9,new java.sql.Date(usuario.getFecNac().getTime()));
 			statement.setString(10, usuario.getNomUsuario());			
 														
@@ -169,11 +169,11 @@ public class UsuarioDAO {
 		Date fecNac = new Date(resultado.getDate("FEC_NAC").getTime());
 		String genero = resultado.getString("GENERO");
 		String correoElec = resultado.getString("CORREO_ELEC");
-		int rol = resultado.getInt("ROL");
+		String rol = resultado.getString("ROL");
 		String contrasena = resultado.getString("CONTRASENA");
 		String nomUsuario = resultado.getString("NOM_USUARIO");
 		
-		Usuario usuario = new Usuario(idUsuario,documento,nombre,apellido,fecNac,genero,correoElec,tipoPublico,tipoReceta,rol,contrasena,nomUsuario);
+		Usuario usuario = new Usuario(idUsuario,documento,nombre,apellido,fecNac,genero,correoElec,tipoPublico,tipoReceta,Rol.valueOf(rol),contrasena,nomUsuario);
 		return usuario;
 	}
 	
