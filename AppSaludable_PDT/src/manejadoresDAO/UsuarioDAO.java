@@ -14,7 +14,7 @@ public class UsuarioDAO {
 
 	private static final String LOGIN = "SELECT * FROM USUARIO WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
 	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
-	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOMBRE=?";
+	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
@@ -100,13 +100,13 @@ public class UsuarioDAO {
 	}
 	
 	//Obtener todos los Usuarios por apellido o nombre (Administrador).
-	public static LinkedList<Usuario> findAll(String apellido,String nombre){
+	public static LinkedList<Usuario> findAll(String apellido,String nomUsuario){
 		LinkedList<Usuario> usuarios = new LinkedList<>();
 		
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(ALL_USUARIO);
 			statement.setString(1, apellido);
-			statement.setString(2,nombre);
+			statement.setString(2,nomUsuario);
 			ResultSet resultado = statement.executeQuery();
 				while (resultado.next()){
 					Usuario usuario = getUsuarioFromResultSet(resultado);
