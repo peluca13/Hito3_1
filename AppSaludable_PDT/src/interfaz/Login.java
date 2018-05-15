@@ -5,6 +5,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import controladores.ControladorUsuarios;
+import entidades.Usuario;
+
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -13,6 +17,7 @@ import javax.swing.JPasswordField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
+import java.awt.Color;
 
 public class Login extends JDialog {
 
@@ -61,7 +66,25 @@ public class Login extends JDialog {
 		txtContrasena.setBounds(185, 107, 134, 20);
 		contentPanel.add(txtContrasena);
 		
+		JLabel lblErrorlogin = new JLabel("Datos Incorrectos");
+		lblErrorlogin.setVerticalAlignment(SwingConstants.TOP);
+		lblErrorlogin.setForeground(Color.RED);
+		lblErrorlogin.setBounds(48, 138, 152, 23);
+		contentPanel.add(lblErrorlogin);
+		lblErrorlogin.setVisible(false);
+		
 		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				boolean valido=ControladorUsuarios.loginUsuario(txtUsuario.getText(),txtContrasena.getText());
+				if(valido==false) {
+					lblErrorlogin.setVisible(true);
+				}else {
+					dispose();
+					
+				}
+			}
+		});
 		btnIngresar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnIngresar.setBounds(210, 138, 89, 23);
 		contentPanel.add(btnIngresar);
@@ -80,6 +103,8 @@ public class Login extends JDialog {
 		btnRegistrarse.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnRegistrarse.setBounds(247, 202, 108, 23);
 		contentPanel.add(btnRegistrarse);
+		
+		
 	
 	}
 }

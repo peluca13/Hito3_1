@@ -2,26 +2,22 @@ package manejadoresDAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.Locale;
 
 public class DatabaseManager {
-
-private static Connection databaseConnection;
+	
+	private static Connection databaseConnection;
 	
 	private static String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static String USUARIO = "PROYECTO";
 	private static String CLAVE = "PROYECTO";
 	
-	static {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-		}catch (ClassNotFoundException e) {
-			System.out.println("No se encuentra el driver en el build-path");
-			e.printStackTrace();
-		}
-	}
 	static{
 		try {
+			Locale.setDefault(new Locale("en","EN"));
 			databaseConnection = DriverManager.getConnection(CONNECTION_STRING,USUARIO,CLAVE);
 		} catch (SQLException e) {
 			System.out.println("Error creando la conexión a la base de datos");
@@ -34,4 +30,5 @@ private static Connection databaseConnection;
 		return databaseConnection;
 		
 	}
+
 }

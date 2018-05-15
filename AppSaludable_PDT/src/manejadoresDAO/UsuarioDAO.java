@@ -6,13 +6,15 @@ import java.sql.SQLException;
 import java.sql.ResultSet;
 import entidades.Usuario;
 import entidades.Rol;
+import entidades.TipoPublico;
+import entidades.TipoReceta;
 import manejadoresDAO.DatabaseManager;
 import java.util.Date;
 import java.util.LinkedList;
 
 public class UsuarioDAO {
 
-	private static final String LOGIN = "SELECT * FROM USUARIO WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
+	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
 	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
@@ -166,14 +168,18 @@ public class UsuarioDAO {
 		String documento = resultado.getString("DOCUMENTO");
 		String nombre = resultado.getString("NOMBRE");
 		String apellido = resultado.getString("APELLIDO");
-		Date fecNac = new Date(resultado.getDate("FEC_NAC").getTime());
+		Date fecNac = new Date(resultado.getDate("FECHA_NACIMIENTO").getTime());
 		String genero = resultado.getString("GENERO");
-		String correoElec = resultado.getString("CORREO_ELEC");
-		String rol = resultado.getString("ROL");
+		String correoElec = resultado.getString("CORREO_ELECTRONICO");
+		String nomRol = resultado.getString("ROL");
+		Rol rol = Rol.valueOf(nomRol);
 		String contrasena = resultado.getString("CONTRASENA");
 		String nomUsuario = resultado.getString("NOM_USUARIO");
-		
-		Usuario usuario = new Usuario(idUsuario,documento,nombre,apellido,fecNac,genero,correoElec,tipoPublico,tipoReceta,Rol.valueOf(rol),contrasena,nomUsuario);
+		String publico = resultado.getString("PUBLICO");
+		TipoPublico tipoPublico =TipoPublico.valueOf(publico);
+		String dieta = resultado.getString("DIETA");
+		TipoReceta tipoReceta= TipoReceta.valueOf(dieta);
+		Usuario usuario = new Usuario(idUsuario,documento,nombre,apellido,fecNac,genero,correoElec,tipoPublico,tipoReceta,rol,contrasena,nomUsuario);
 		return usuario;
 	}
 	
