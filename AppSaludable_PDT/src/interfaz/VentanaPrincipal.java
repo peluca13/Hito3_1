@@ -2,6 +2,9 @@ package interfaz;
 
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -67,12 +70,21 @@ public class VentanaPrincipal extends JFrame {
 		
 		mntmAltas = new JMenuItem("Altas");
 		mnAbm.add(mntmAltas);
+		mntmAltas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+            	new AltaUsuario(frame);
+            	
+            }
+        });
 		
 		mntmBajas = new JMenuItem("Bajas");
 		mnAbm.add(mntmBajas);
 		
 		mntmModificaciones = new JMenuItem("Modificaciones");
 		mnAbm.add(mntmModificaciones);
+		
 		
 		//Menu Usuario
 
