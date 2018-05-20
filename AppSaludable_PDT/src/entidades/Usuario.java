@@ -9,7 +9,7 @@ public class Usuario {
 	private String nombre;
 	private String apellido;
 	private Date fecNac;
-	private String genero;
+	private int genero;
 	private String correoElec;
 	private TipoPublico tipoPublico;
 	private TipoReceta tipoReceta;
@@ -18,7 +18,7 @@ public class Usuario {
 	private String nomUsuario;
 	
 	//constructor
-	public Usuario(int idUsuario,String documento,String nombre,String apellido,Date fecNac,String genero,String correoElec,
+	public Usuario(int idUsuario,String documento,String nombre,String apellido,Date fecNac,int genero,String correoElec,
 			TipoPublico tipoPublico,TipoReceta tipoReceta,Rol rol,String contrasena,String nomUsuario) {
 		super();
 		this.idUsuario=idUsuario;
@@ -67,10 +67,10 @@ public class Usuario {
 	public void setFechaNac(Date fecNac) {
 		this.fecNac = fecNac;
 	}
-	public String getGenero() {
+	public int getGenero() {
 		return genero;
 	}
-	public void setGenero(String genero) {
+	public void setGenero(int genero) {
 		this.genero = genero;
 	}
 	public String getCorreoElec() {

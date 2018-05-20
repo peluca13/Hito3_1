@@ -1,8 +1,12 @@
 package controladores;
 
 
+import java.sql.Date;
 import java.sql.SQLException;
 
+import entidades.Rol;
+import entidades.TipoPublico;
+import entidades.TipoReceta;
 import entidades.Usuario;
 import manejadoresDAO.UsuarioDAO;
 import interfaz.VentanaPrincipal;
@@ -64,18 +68,22 @@ public static boolean existeUsername(String username){
 
 //Alta Usuario
 	
-/*
-public static boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, String usuario, String pass){
+
+public static boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass){
 	
 	boolean pudeCrear;
-	Usuario usuario = new Usuario(nombre, apellido, ci);
+	int idUser=1;
+	TipoReceta tiporeceta=TipoReceta.TODOS;
+	TipoPublico tipopublico=TipoPublico.TODOS;
+	Rol rol=Rol.USUARIO;
+	Usuario user = new Usuario(idUser,doc,nombre,apellido,fecha,genero,correo,tipopublico,tiporeceta,rol,pass,usuario);
 	
 	try{
-		ManejadorClientes.guardarCliente(cliente);
+		UsuarioDAO.insert(user);
 		pudeCrear = true;
 	}
 	catch (SQLException e){
-		// ca va el cofigo se falla el insert
+		// ca va el codigo se falla el insert
 		pudeCrear = false;
 	}
 	
@@ -83,7 +91,7 @@ public static boolean ingresarNuevoUsuario(String nombre, String apellido, Strin
 	
 }
 
-*/
+
 
 	
 }

@@ -43,14 +43,14 @@ public class UsuarioDAO {
 		}
 	
 	//Insertar Usuario pasado por parámetro (Administrador).
-	public static boolean insert(Usuario usuario){
-		try{
+	public static void insert(Usuario usuario) throws SQLException{
+
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_USUARIO);
 			statement.setInt(1, usuario.getIdUsuario());
 			statement.setString(2, usuario.getDocumento());
 			statement.setString(3, usuario.getNombre());
 			statement.setString(4, usuario.getApellido());
-			statement.setString(5, usuario.getGenero());
+			statement.setInt(5, usuario.getGenero());
 			statement.setString(6, usuario.getContrasena());
 			statement.setString(7, usuario.getCorreoElec());
 			statement.setString(8, usuario.getRol().name());
@@ -59,13 +59,6 @@ public class UsuarioDAO {
 														
 			int retorno = statement.executeUpdate();
 									
-			return retorno>0;
-				
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			return false;
-		}
 		
 	}
 	
@@ -131,7 +124,7 @@ public class UsuarioDAO {
 			statement.setString(1, usuario.getDocumento());
 			statement.setString(2, usuario.getNombre());
 			statement.setString(3, usuario.getApellido());
-			statement.setString(4, usuario.getGenero());
+			statement.setInt(4, usuario.getGenero());
 			statement.setString(5, usuario.getContrasena());
 			statement.setString(6, usuario.getCorreoElec());
 			statement.setDate(7,new java.sql.Date(usuario.getFecNac().getTime()));
@@ -207,7 +200,7 @@ public class UsuarioDAO {
 		String nombre = resultado.getString("NOMBRE");
 		String apellido = resultado.getString("APELLIDO");
 		Date fecNac = new Date(resultado.getDate("FECHA_NACIMIENTO").getTime());
-		String genero = resultado.getString("GENERO");
+		int genero = resultado.getInt("GENERO");
 		String correoElec = resultado.getString("CORREO_ELECTRONICO");
 		String nomRol = resultado.getString("ROL");
 		Rol rol = Rol.valueOf(nomRol);
