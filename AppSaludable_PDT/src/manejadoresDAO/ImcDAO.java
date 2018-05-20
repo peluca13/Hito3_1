@@ -141,7 +141,7 @@ public class ImcDAO {
 		double peso = resultado.getDouble("PESO");
 		int idUsuario = resultado.getInt("ID_USUARIO");
 		Usuario usuario = null;
-		usuario = UsuarioDAO.find(idUsuario);
+		usuario = UsuarioDAO.findId(idUsuario);
 		Imc imc = new Imc(idImc,fecha,altura,peso,usuario);
 		return imc;
 	}

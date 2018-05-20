@@ -21,6 +21,8 @@ public class UsuarioDAO {
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
 	private static final String USUARIO_ID = "SELECT * FROM USUARIO WHERE ID_USUARIO=?";
+	private static final String USUARIO_USERNAME = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO=?";
+	private static final String USUARIO_DOCUMENTO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.DOCUMENTO=?";
 	
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
 		public static Usuario login(String nomUsuario,String contrasena){
@@ -145,11 +147,28 @@ public class UsuarioDAO {
 			}
 	}
 	
-		//Obtener un Usuario por ID.
-		public static Usuario find(int idUsuario){
+	//Obtener un Usuario por id.
+			public static Usuario findId(int idUsuario){
+				try{
+					PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_ID);
+					statement.setInt(1, idUsuario);
+					ResultSet resultado = statement.executeQuery();
+					Usuario usuario = null;
+						if (resultado.next()){
+							usuario = getUsuarioFromResultSet(resultado);
+						}
+							return usuario;
+				}catch(SQLException e){
+					e.printStackTrace();
+					return null;
+				}
+			}
+	
+		//Obtener un Usuario por username.
+		public static Usuario findByUser(String username){
 			try{
-				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_ID);
-				statement.setInt(1, idUsuario);
+				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_USERNAME);
+				statement.setString(1, username);
 				ResultSet resultado = statement.executeQuery();
 				Usuario usuario = null;
 					if (resultado.next()){
@@ -161,6 +180,25 @@ public class UsuarioDAO {
 				return null;
 			}
 		}
+		
+		//Obtener un Usuario por documento.
+				public static Usuario findByDoc(String documentoUsuario){
+					try{
+						PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_DOCUMENTO);
+						statement.setString(1, documentoUsuario);
+						ResultSet resultado = statement.executeQuery();
+						Usuario usuario = null;
+							if (resultado.next()){
+								usuario = getUsuarioFromResultSet(resultado);
+							}
+								return usuario;
+					}catch(SQLException e){
+						e.printStackTrace();
+						return null;
+					}
+				}
+		
+		
 	
 	//Método auxiliar para mappear la clase Usuario.
 	private static Usuario getUsuarioFromResultSet(ResultSet resultado) throws SQLException{

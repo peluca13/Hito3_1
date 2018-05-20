@@ -136,6 +136,11 @@ public class AltaUsuario implements ActionListener{
 		textFieldPass.setColumns(10);
 		
 		JButton btnGuardar = new JButton("Guardar");
+		btnGuardar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Alta();
+			}
+		});
 		btnGuardar.setBounds(93, 363, 89, 23);
 		panel.add(btnGuardar);
 		
@@ -222,19 +227,33 @@ public class AltaUsuario implements ActionListener{
 
 			return;
 		}
-/*            FALTA COMPLETAR VALIDACIONES
-		// Valiamos ahora, que no exista un cliente con dicha CI
-		boolean existe = ControladorClientes.existeCliente(fieldCi);
+		
+        		
+		// Valida que usuario no exista con mismo documento
+		if(fieldDoc!="") {
+		boolean existeCi = ControladorUsuarios.existeCi(fieldDoc);
 
-		if (existe) {
-			JOptionPane.showMessageDialog(frame, "El cliente con dicha CI ya se ecuentra registrado.",
-					"Cliente Existente!", JOptionPane.WARNING_MESSAGE);
+		if (existeCi) {
+			JOptionPane.showMessageDialog(frame, "El documento se encuentra ingresado para otro usuario.",
+					"Documento Existente!", JOptionPane.WARNING_MESSAGE);
 
 			return;
 		}
+		}
+		
+		// Valida que usuario no exista con mismo username
+				boolean existeUsername = ControladorUsuarios.existeUsername(fieldUsuario);
 
-		// Si estamos aquí,..quiere decir que no hay errores. Almacenamos el
-		// cliente y volvemos al menu
+				if (existeUsername) {
+					JOptionPane.showMessageDialog(frame, "El nombre de usuario ya se encuentra ingresado para otro usuario",
+							"Username Existente!", JOptionPane.WARNING_MESSAGE);
+
+					return;
+				}
+				
+		
+/*
+		// Almacenamos Usuario
 		boolean almacenado = ControladorClientes.ingresarNuevoCliente(fieldNombre, fieldApellido, fieldCi);
 
 		if (almacenado) {
