@@ -55,9 +55,9 @@ public class AltaUsuario implements ActionListener{
 	 */
 	private void initialize(JFrame framePadre) {
 		frame_1 = new JFrame("Nuevo Usuario");
-		frame_1.setLocationRelativeTo(null);
 		frame_1.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame_1.setSize(482, 535);
+		frame_1.setLocationRelativeTo(null);
 		
 
 		frame_1.setVisible(true);
