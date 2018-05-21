@@ -14,15 +14,15 @@ import java.util.LinkedList;
 
 public class UsuarioDAO {
 
-	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
-	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
+	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO = ? AND U.CONTRASENA = ?";
+	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (SEQ_ID_USUARIO.NEXTVAL,?,?,?,?,?,?,?,?,?)";
 	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
 	private static final String USUARIO_ID = "SELECT * FROM USUARIO WHERE ID_USUARIO=?";
-	private static final String USUARIO_USERNAME = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO=?";
-	private static final String USUARIO_DOCUMENTO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.DOCUMENTO=?";
+	private static final String USUARIO_USERNAME = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO=?";
+	private static final String USUARIO_DOCUMENTO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.DOCUMENTO=?";
 	
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
 		public static Usuario login(String nomUsuario,String contrasena){
@@ -46,16 +46,25 @@ public class UsuarioDAO {
 	public static void insert(Usuario usuario) throws SQLException{
 
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_USUARIO);
-			statement.setInt(1, usuario.getIdUsuario());
-			statement.setString(2, usuario.getDocumento());
-			statement.setString(3, usuario.getNombre());
-			statement.setString(4, usuario.getApellido());
-			statement.setInt(5, usuario.getGenero());
-			statement.setString(6, usuario.getContrasena());
-			statement.setString(7, usuario.getCorreoElec());
-			statement.setString(8, usuario.getRol().name());
-			statement.setDate(9,new java.sql.Date(usuario.getFecNac().getTime()));
-			statement.setString(10, usuario.getNomUsuario());			
+			//statement.setInt(1, usuario.getIdUsuario());
+			if(usuario.getDocumento().isEmpty()) {
+				statement.setNull(1, java.sql.Types.INTEGER);
+			}else {
+				statement.setString(1, usuario.getDocumento());
+			}			
+			statement.setString(2, usuario.getNombre());
+			statement.setString(3, usuario.getApellido());
+			statement.setInt(4, usuario.getGenero());
+			statement.setString(5, usuario.getContrasena());
+			if(usuario.getCorreoElec().isEmpty()) {
+				statement.setNull(6, java.sql.Types.INTEGER);
+			}else {
+				statement.setString(6, usuario.getCorreoElec());
+			}
+			statement.setInt(7, usuario.getRol().getIdRol());
+			statement.setDate(8,new java.sql.Date(usuario.getFecNac().getTime()));
+
+			statement.setString(9, usuario.getNomUsuario());			
 			statement.executeUpdate();
 									
 			

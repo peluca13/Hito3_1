@@ -231,7 +231,7 @@ public class AltaUsuario implements ActionListener{
 		
 
 		// check obligatorios
-		if (fieldNombre.equals("") || fieldApellido.equals("") ||fieldUsuario.equals("")|| fieldPass.equals("")) {
+		if (fieldNombre.equals("") || fieldApellido.equals("") ||fieldUsuario.equals("")|| fieldPass.equals("")||fecha==null) {
 			JOptionPane.showMessageDialog(frame, "Debe completar todos los datos obligatorios.", "Datos incompletos",
 					JOptionPane.WARNING_MESSAGE);
 
@@ -271,17 +271,19 @@ public class AltaUsuario implements ActionListener{
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;
 		}
+		if(fieldDoc!="") {
 		if(fieldDoc.length()>=20) {
 			JOptionPane.showMessageDialog(frame, "El campo documento debe ser igual o menor a 20 caracteres",
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;
+		}
 		}
 		if(fieldCorreo.length()>=200) {
 			JOptionPane.showMessageDialog(frame, "El campo correo debe ser igual o menor a 200 caracteres",
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;
 		}		
-		if(fieldPass.length()>=16 ||fieldPass.length()<8) {
+		if(fieldPass.length()>=16 ||fieldPass.length()<=8) {
 			JOptionPane.showMessageDialog(frame, "El campo contraseña debe tener como minimo 8 caracteres y como máximo 16",
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;
