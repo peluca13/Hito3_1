@@ -3,6 +3,7 @@ package controladores;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.List;
 
 import entidades.Rol;
 import entidades.TipoPublico;
@@ -83,12 +84,21 @@ public static boolean ingresarNuevoUsuario(String nombre, String apellido, Strin
 		pudeCrear = true;
 	}
 	catch (SQLException e){
+		e.printStackTrace();
 		// ca va el codigo se falla el insert
 		pudeCrear = false;
 	}
 	
 	return pudeCrear;
 	
+}
+
+
+
+//Obtener todos los usuarios
+public List<Usuario> obtenerTodosUsuarios(String apellido, String nombre){
+	
+	return UsuarioDAO.findAll(apellido,nombre);
 }
 
 
