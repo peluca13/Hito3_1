@@ -56,6 +56,7 @@ public class BajaUsuario implements ActionListener {
 		frmBorrarUsuario = new JFrame();
 		frmBorrarUsuario.setTitle("Borrar Usuario");
 		frmBorrarUsuario.setBounds(100, 100, 450, 300);
+		frmBorrarUsuario.setLocationRelativeTo(null);
 		frmBorrarUsuario.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frmBorrarUsuario.getContentPane().setLayout(null);
 		frmBorrarUsuario.setVisible(true);
