@@ -17,7 +17,7 @@ import java.util.LinkedList;
 public class UsuarioDAO {
 
 	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO = ? AND U.CONTRASENA = ?";
-	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (SEQ_ID_USUARIO.NEXTVAL,?,?,?,?,?,?,?,?,?)";
+	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO,TIPO_PUBLICO,TIPO_RECETA) VALUES (SEQ_ID_USUARIO.NEXTVAL,?,?,?,?,?,?,?,?,?,1,1)";
 	private static final String ALL_USUARIO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.APELLIDO=? OR U.NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
@@ -50,7 +50,7 @@ public class UsuarioDAO {
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_USUARIO);
 			//statement.setInt(1, usuario.getIdUsuario());
 			if(usuario.getDocumento().isEmpty()) {
-				statement.setNull(1, java.sql.Types.INTEGER);
+				statement.setString(1, "");
 			}else {
 				statement.setString(1, usuario.getDocumento());
 			}			
@@ -59,7 +59,7 @@ public class UsuarioDAO {
 			statement.setInt(4, usuario.getGenero());
 			statement.setString(5, usuario.getContrasena());
 			if(usuario.getCorreoElec().isEmpty()) {
-				statement.setNull(6, java.sql.Types.INTEGER);
+				statement.setString(6, "");
 			}else {
 				statement.setString(6, usuario.getCorreoElec());
 			}
@@ -210,6 +210,7 @@ public class UsuarioDAO {
 		Date fecNac = new Date(resultado.getDate("FEC_NAC").getTime());
 		int genero = resultado.getInt("GENERO");
 		String correoElec = resultado.getString("CORREO_ELEC");
+		//if(correoElec.isEmpty()) {correoElec="";}
 		String nomRol = resultado.getString("ROL");
 		Rol rol = Rol.valueOf(nomRol);
 		String contrasena = resultado.getString("CONTRASENA");
