@@ -145,7 +145,7 @@ public class NuevaPass implements ActionListener{
 	boolean cambioDePass= ControladorUsuarios.cambiarPass(pass, identifica);
 	
 	if(cambioDePass) {
-		JOptionPane.showMessageDialog(frmNuevaContrasea, "El Usuario se ha creado con éxito.",
+		JOptionPane.showMessageDialog(frmNuevaContrasea, "La contraseña se ha cambido con éxito.",
 				"Usuario Agregado!", JOptionPane.INFORMATION_MESSAGE);
 		
 		// cerramos la ventanta
