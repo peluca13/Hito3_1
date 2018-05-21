@@ -98,6 +98,25 @@ public static boolean ingresarNuevoUsuario(String nombre, String apellido, Strin
 }
 
 
+//Baja Usuario
+
+public static boolean borrarUsuario(int id) {
+	boolean puedeBorrar;
+	try {
+		UsuarioDAO.delete(id);
+		puedeBorrar = true;
+	}catch (SQLException e){
+		e.printStackTrace();
+		// ca va el codigo se falla el insert
+		puedeBorrar = false;
+	}
+	
+	return puedeBorrar;
+	
+}
+
+
+
 
 //Obtener todos los usuarios
 public static ArrayList<Usuario> obtenerInfoUsuarios(String apellido, String username){

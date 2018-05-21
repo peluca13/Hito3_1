@@ -3,12 +3,16 @@ package interfaz;
 
 
 import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 
 import javax.swing.JTextField;
@@ -24,6 +28,10 @@ public class BajaUsuario implements ActionListener {
 
 	private JTable table;
 	private JFrame frame;
+	private int idUsuario=0;
+	private String nombreUsu="";
+	private String apeUsu="";
+	private String usernameUsu="";
 	private JFrame frmBorrarUsuario;
 	private JTextField textFieldApellido;
 	private JTextField textFieldUsuario;
@@ -91,13 +99,76 @@ public class BajaUsuario implements ActionListener {
 		JScrollPane scrollPane = new JScrollPane(table);
 		scrollPane.setBounds(47, 150, 358, 62);		 
 		frmBorrarUsuario.getContentPane().add(scrollPane);
-				
+		
+		JButton btnBorrar = new JButton("BORRAR");
+		btnBorrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(idUsuario!=0) {borrarUsuario(idUsuario);}
+			}
+		});
+		btnBorrar.setBounds(47, 223, 89, 23);
+		frmBorrarUsuario.getContentPane().add(btnBorrar);
+		
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frmBorrarUsuario.dispose();
+			}
+		});
+		btnCancelar.setBounds(316, 223, 89, 23);
+		frmBorrarUsuario.getContentPane().add(btnCancelar);
+		
+		
+		table.addMouseListener(new MouseAdapter() {
+		@Override
+		public void mouseClicked(MouseEvent arg0) {
+	        Point p = arg0.getPoint();
+	        int row = table.rowAtPoint(p);
+	        idUsuario = Integer.parseInt( table.getModel().getValueAt(row, 0).toString() );
+	        nombreUsu = table.getModel().getValueAt(row, 1).toString();
+	        apeUsu = table.getModel().getValueAt(row, 2).toString();
+	        usernameUsu = table.getModel().getValueAt(row, 3).toString();
+	        
+	        }
+	});
+								
 	}
 	
 	
 	
 	
 	
+	public void borrarUsuario(int id) {
+		
+		int input=JOptionPane.showConfirmDialog(frame, "Esta seguro de que desea borrar el usuario:\nNombre: "+nombreUsu+"\nApellido: "+apeUsu+"\nUsername: "+usernameUsu);
+		if(input==0) {
+			System.out.println(idUsuario);
+			boolean borrado = ControladorUsuarios.borrarUsuario(idUsuario);
+
+			if (borrado) {
+				idUsuario=0;
+				JOptionPane.showMessageDialog(frame, "El Usuario se ha borrado con éxito.",
+						"Usuario Borrado!", JOptionPane.INFORMATION_MESSAGE);
+				// cerramos la ventanta
+				this.frame.dispose();				
+			}
+			else{
+				idUsuario=0;
+				JOptionPane.showMessageDialog(frame, "Hubo un error al borrar.",
+						"Error al Borrar!", JOptionPane.ERROR_MESSAGE);
+			}
+		}
+		if(input==1) {
+			idUsuario=0;
+			return;
+		}
+		if(input==2) {
+			idUsuario=0;
+			return;
+		}	
+
+	}
+
 	public void cargarTabla(){
 		//Nombre de las columnas de la tabla
         String[] columnas = new String[] { "ID", "Nombre", "Apellido", "Username", "Documento"};

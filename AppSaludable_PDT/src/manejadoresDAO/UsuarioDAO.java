@@ -20,7 +20,7 @@ public class UsuarioDAO {
 	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO,TIPO_PUBLICO,TIPO_RECETA) VALUES (SEQ_ID_USUARIO.NEXTVAL,?,?,?,?,?,?,?,?,?,1,1)";
 	private static final String ALL_USUARIO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.APELLIDO=? OR U.NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
-	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
+	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=?";
 	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
 	private static final String USUARIO_ID = "SELECT * FROM USUARIO WHERE ID_USUARIO=?";
 	private static final String USUARIO_USERNAME = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO=?";
@@ -90,19 +90,13 @@ public class UsuarioDAO {
 	}
 	
 	//Borrar Usuario pasado por parámetro (Administrador).
-	public static boolean delete(Usuario usuario){
-		try{
+	public static void delete(int id)throws SQLException{
+
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(DELETE_USUARIO);
-			statement.setInt(1, usuario.getIdUsuario());
-			statement.setString(2, usuario.getNomUsuario());
+			statement.setInt(1,id);
 			
-			int retorno = statement.executeUpdate();
-		
-			return retorno>0;
-		}catch(SQLException e){
-			e.printStackTrace();
-			return false;
-		}
+			statement.executeUpdate();
+	
 	}
 	
 	//Obtener todos los Usuarios por apellido o nombre (Administrador).
