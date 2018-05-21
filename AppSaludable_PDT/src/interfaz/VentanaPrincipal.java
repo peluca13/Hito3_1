@@ -20,8 +20,10 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem mntmAltas;
 	private JMenuItem mntmBajas;
 	private JMenuItem mntmModificaciones;
-	private JMenu mnListaIMC;
+	private JMenu mnMenuUsuario;
+	private JMenuItem mntmVerModDatos;
 	private JMenuItem mntmVerIMC;
+	
 
 	
 	static VentanaPrincipal frame = new VentanaPrincipal();
@@ -63,6 +65,7 @@ public class VentanaPrincipal extends JFrame {
 		//Menu Admin
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
+		
 		//BOTON ALTAS BAJAS MODIFICACIONES
 		mnAbm = new JMenu("ABM");
 		menuBar.add(mnAbm);
@@ -107,13 +110,17 @@ public class VentanaPrincipal extends JFrame {
 		
 		//Menu Usuario
 
-		mnListaIMC = new JMenu("ListaIMC");
-		menuBar.add(mnListaIMC);
-		mnListaIMC.setVisible(false);
-		mntmVerIMC = new JMenuItem("IMC Usuario");
-		mnListaIMC.add(mntmVerIMC);
-
+		mnMenuUsuario = new JMenu("Opciones de Usuario");
+		menuBar.add(mnMenuUsuario);
+		mnMenuUsuario.setVisible(false);
 		
+		// Botón Ver/modificar datos usuario.
+		mntmVerModDatos = new JMenuItem("Ver/modificar datos");
+		mnMenuUsuario.add(mntmVerModDatos);
+		
+		// Botón Ver evolución IMC.
+		mntmVerIMC = new JMenuItem("Ver evolución de IMC");
+		mnMenuUsuario.add(mntmVerIMC);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -126,7 +133,7 @@ public class VentanaPrincipal extends JFrame {
 			mnAbm.setVisible(true);
 		}
 		if(rol.equals("Usuario")) {
-			mnListaIMC.setVisible(true);
+			mnMenuUsuario.setVisible(true);
 		}
 	}
 	

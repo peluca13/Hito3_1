@@ -118,7 +118,7 @@ public class AltaUsuario implements ActionListener{
 		panel.add(textFieldDoc);
 		textFieldDoc.setColumns(10);
 		
-		this.datePicker = this.creareDatePicker();
+		this.datePicker = this.createDatePicker();
 		datePicker.setBounds(135, 124, 130, 20);
 		panel.add(this.datePicker);
 		
@@ -209,7 +209,7 @@ public class AltaUsuario implements ActionListener{
 	
 	
 	
-	private JDatePickerImpl creareDatePicker() {
+	private JDatePickerImpl createDatePicker() {
 
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
