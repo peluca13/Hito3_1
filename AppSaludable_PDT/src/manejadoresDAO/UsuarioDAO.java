@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 public class UsuarioDAO {
 
-	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELECTRONICO,R.NOMBRE ROL,U.FECHA_NACIMIENTO,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
+	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE NOM_USUARIO = ? AND CONTRASENA = ?";
 	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (?,?,?,?,?,?,?,?,?,?)";
 	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
@@ -56,10 +56,9 @@ public class UsuarioDAO {
 			statement.setString(8, usuario.getRol().name());
 			statement.setDate(9,new java.sql.Date(usuario.getFecNac().getTime()));
 			statement.setString(10, usuario.getNomUsuario());			
-														
-			int retorno = statement.executeUpdate();
+			statement.executeUpdate();
 									
-		
+			
 	}
 	
 	//Editar contraseña de Usuario pasado por parámetro (Administrador).
@@ -69,8 +68,7 @@ public class UsuarioDAO {
 			statement.setString(1, usuario.getContrasena());
 			statement.setInt(2, usuario.getIdUsuario());
 			statement.setString(3, usuario.getNomUsuario());
-			statement.execute();
-		
+					
 			int retorno = statement.executeUpdate();
 		
 			return retorno>0;
@@ -129,8 +127,7 @@ public class UsuarioDAO {
 			statement.setString(6, usuario.getCorreoElec());
 			statement.setDate(7,new java.sql.Date(usuario.getFecNac().getTime()));
 			statement.setString(8, usuario.getNomUsuario());
-			statement.execute();
-		
+					
 			int retorno = statement.executeUpdate();
 		
 			return retorno>0;
@@ -141,16 +138,16 @@ public class UsuarioDAO {
 	}
 	
 	//Obtener un Usuario por id.
-			public static Usuario findId(int idUsuario){
-				try{
-					PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_ID);
-					statement.setInt(1, idUsuario);
-					ResultSet resultado = statement.executeQuery();
-					Usuario usuario = null;
-						if (resultado.next()){
-							usuario = getUsuarioFromResultSet(resultado);
-						}
-							return usuario;
+		public static Usuario findId(int idUsuario){
+			try{
+				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(USUARIO_ID);
+				statement.setInt(1, idUsuario);
+				ResultSet resultado = statement.executeQuery();
+				Usuario usuario = null;
+					if (resultado.next()){
+						usuario = getUsuarioFromResultSet(resultado);
+					}
+						return usuario;
 				}catch(SQLException e){
 					e.printStackTrace();
 					return null;
@@ -199,9 +196,9 @@ public class UsuarioDAO {
 		String documento = resultado.getString("DOCUMENTO");
 		String nombre = resultado.getString("NOMBRE");
 		String apellido = resultado.getString("APELLIDO");
-		Date fecNac = new Date(resultado.getDate("FECHA_NACIMIENTO").getTime());
+		Date fecNac = new Date(resultado.getDate("FEC_NAC").getTime());
 		int genero = resultado.getInt("GENERO");
-		String correoElec = resultado.getString("CORREO_ELECTRONICO");
+		String correoElec = resultado.getString("CORREO_ELEC");
 		String nomRol = resultado.getString("ROL");
 		Rol rol = Rol.valueOf(nomRol);
 		String contrasena = resultado.getString("CONTRASENA");
