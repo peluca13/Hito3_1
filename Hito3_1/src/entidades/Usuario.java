@@ -1,34 +1,36 @@
-package objetos;
+package entidades;
 
 import java.util.Date;
 
 public class Usuario {
 	
 	private int idUsuario;
-	private String ci;
+	private String documento;
 	private String nombre;
 	private String apellido;
-	private Date fechaNac;
-	private String genero;
-	private String correo;
+	private Date fecNac;
+	private int genero;
+	private String correoElec;
 	private TipoPublico tipoPublico;
 	private TipoReceta tipoReceta;
+	private Rol rol;
 	private String contrasena;
 	private String nomUsuario;
 	
 	//constructor
-	public Usuario(int idUsuario,String ci,String nombre,String apellido,Date fechaNac,String genero,String correo,
-			TipoPublico tipoPublico,TipoReceta tipoReceta,String contrasena,String nomUsuario) {
+	public Usuario(int idUsuario,String documento,String nombre,String apellido,Date fecNac,int genero,String correoElec,
+			TipoPublico tipoPublico,TipoReceta tipoReceta,Rol rol,String contrasena,String nomUsuario) {
 		super();
 		this.idUsuario=idUsuario;
-		this.ci = ci;
+		this.documento = documento;
 		this.nombre = nombre;
 		this.apellido=apellido;
-		this.fechaNac = fechaNac;
+		this.fecNac = fecNac;
 		this.genero = genero;
-		this.correo = correo;
+		this.correoElec = correoElec;
 		this.tipoPublico = tipoPublico;
 		this.tipoReceta = tipoReceta;
+		this.rol=rol;
 		this.contrasena = contrasena;
 		this.nomUsuario = nomUsuario;
 	}
@@ -41,11 +43,11 @@ public class Usuario {
 	public void setIdUsuario(int idUsuario) {
 		this.idUsuario=idUsuario;
 	}
-	public String getCi() {
-		return ci;
+	public String getDocumento() {
+		return documento;
 	}
-	public void setCi(String ci) {
-		this.ci = ci;
+	public void setDocumento(String documento) {
+		this.documento = documento;
 	}
 	public String getNombre() {
 		return nombre;
@@ -59,23 +61,23 @@ public class Usuario {
 	public void setApellido(String apellido) {
 		this.apellido=apellido;
 	}
-	public Date getFechaNac() {
-		return fechaNac;
+	public Date getFecNac() {
+		return fecNac;
 	}
-	public void setFechaNac(Date fechaNac) {
-		this.fechaNac = fechaNac;
+	public void setFechaNac(Date fecNac) {
+		this.fecNac = fecNac;
 	}
-	public String getGenero() {
+	public int getGenero() {
 		return genero;
 	}
-	public void setGenero(String genero) {
+	public void setGenero(int genero) {
 		this.genero = genero;
 	}
-	public String getCorreo() {
-		return correo;
+	public String getCorreoElec() {
+		return correoElec;
 	}
-	public void setCorreo(String correo) {
-		this.correo = correo;
+	public void setCorreoElec(String correoElec) {
+		this.correoElec = correoElec;
 	}
 	public TipoPublico getTipoPublico() {
 		return tipoPublico;
@@ -88,6 +90,12 @@ public class Usuario {
 	}
 	public void setTipoReceta(TipoReceta tipoReceta) {
 		this.tipoReceta = tipoReceta;
+	}
+	public Rol getRol() {
+		return rol;
+	}
+	public void setRol(Rol rol) {
+		this.rol=rol;
 	}
 	public String getContrasena() {
 		return contrasena;
@@ -105,9 +113,9 @@ public class Usuario {
 	//to String
 	@Override
 	public String toString() {
-		return "Usuario [ID Usuario=" +idUsuario+",ci=" +ci+", nombre=" +nombre+",apellido=" +apellido+","
-					+ "fechaNac=" +fechaNac+",género=" +genero+",correo=" +correo+",tipoPublico=" +tipoPublico+","
-						+ "tipoReceta=" +tipoReceta+",contrasena="	+contrasena+",username=" +nomUsuario+"]";
+		return "Usuario [ID Usuario=" +idUsuario+",ci=" +documento+", nombre=" +nombre+",apellido=" +apellido+","
+					+ "fechaNac=" +fecNac+",género=" +genero+",correo=" +correoElec+",tipoPublico=" +tipoPublico+","
+						+ "tipoReceta=" +tipoReceta+",rol=" +rol+",contrasena="	+contrasena+",username=" +nomUsuario+"]";
 	}
 	
 }
