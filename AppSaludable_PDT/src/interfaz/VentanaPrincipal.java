@@ -94,6 +94,15 @@ public class VentanaPrincipal extends JFrame {
 		
 		mntmModificaciones = new JMenuItem("Modificaciones");
 		mnAbm.add(mntmModificaciones);
+		mntmModificaciones.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+            	new ModificarPass();
+
+            	
+            }
+        }); 
 		
 		
 		//Menu Usuario

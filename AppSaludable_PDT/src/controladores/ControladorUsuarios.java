@@ -116,6 +116,12 @@ public static boolean borrarUsuario(int id) {
 }
 
 
+//Obtener Usuario
+
+public static Usuario ObtenerUsuario(int id) {
+	return UsuarioDAO.findId(id);
+}
+
 
 
 //Obtener todos los usuarios
