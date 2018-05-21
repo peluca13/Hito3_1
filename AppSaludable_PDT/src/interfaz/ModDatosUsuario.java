@@ -53,6 +53,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		setResizable(false);
 		this.initialize(framePadre);
 		}
+	
 	private void initialize(JFrame framePadre) {
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -234,8 +235,9 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 	
 	//Cancelar
 		private void Cancelar() {
-			this.frame.dispose();
+			frame.dispose();
 		}
+		
 		//Modificación datos
 		
 		private void ModificarDatos() {

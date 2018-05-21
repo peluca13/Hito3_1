@@ -117,6 +117,15 @@ public class VentanaPrincipal extends JFrame {
 		// Botón Ver/modificar datos usuario.
 		mntmVerModDatos = new JMenuItem("Ver/modificar datos");
 		mnMenuUsuario.add(mntmVerModDatos);
+		mntmVerModDatos.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+            	new ModDatosUsuario(frame);
+
+            	
+            }
+        }); 
 		
 		// Botón Ver evolución IMC.
 		mntmVerIMC = new JMenuItem("Ver evolución de IMC");
