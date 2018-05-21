@@ -122,6 +122,23 @@ public static Usuario ObtenerUsuario(int id) {
 	return UsuarioDAO.findId(id);
 }
 
+//Admin Cambio contraseña
+
+public static boolean cambiarPass(String password,int id) {
+	boolean puedeCambiar;
+	try {
+		UsuarioDAO.editCont(password,id);
+		puedeCambiar = true;
+	}catch (SQLException e){
+		e.printStackTrace();
+		// ca va el codigo se falla el insert
+		puedeCambiar = false;
+	}
+	
+	return puedeCambiar;
+	
+}
+
 
 
 //Obtener todos los usuarios

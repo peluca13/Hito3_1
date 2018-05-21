@@ -296,7 +296,7 @@ public class AltaUsuario implements ActionListener{
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;
 		}		
-		if(fieldPass.length()>=16 ||fieldPass.length()<=8) {
+		if(fieldPass.length()>=16 ||fieldPass.length()<8) {
 			JOptionPane.showMessageDialog(frame, "El campo contraseña debe tener como minimo 8 caracteres y como máximo 16",
 					"Máximo caracteres excedido!", JOptionPane.WARNING_MESSAGE);
 			return;

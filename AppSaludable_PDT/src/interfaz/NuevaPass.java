@@ -8,7 +8,11 @@ import javax.swing.JFrame;
 
 import entidades.Usuario;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+
+import controladores.ControladorUsuarios;
+
 import javax.swing.JButton;
 
 public class NuevaPass implements ActionListener{
@@ -112,6 +116,7 @@ public class NuevaPass implements ActionListener{
 		btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				NuevaPassword(textFieldPass.getText(),user.getIdUsuario());
 			}
 		});
 		btnGuardar.setBounds(28, 326, 89, 23);
@@ -127,6 +132,29 @@ public class NuevaPass implements ActionListener{
 		frmNuevaContrasea.getContentPane().add(btnCancelar);
 
 		
+		
+	}
+
+	protected void NuevaPassword(String pass,int identifica) {
+		if(pass.length()<8 || pass.length()>=16) {
+			JOptionPane.showMessageDialog(frmNuevaContrasea, "El campo contraseña debe tener como minimo 8 caracteres y como máximo 16",
+					"Cantidad caracteres!", JOptionPane.WARNING_MESSAGE);
+			return;
+		}
+		
+	boolean cambioDePass= ControladorUsuarios.cambiarPass(pass, identifica);
+	
+	if(cambioDePass) {
+		JOptionPane.showMessageDialog(frmNuevaContrasea, "El Usuario se ha creado con éxito.",
+				"Usuario Agregado!", JOptionPane.INFORMATION_MESSAGE);
+		
+		// cerramos la ventanta
+		frmNuevaContrasea.dispose();
+	}
+	else{
+		JOptionPane.showMessageDialog(frmNuevaContrasea, "Hubo un error al cambiar el password. Intente nuevamente más tarde",
+				"Error al actualizar!", JOptionPane.ERROR_MESSAGE);
+	}	
 		
 	}
 
