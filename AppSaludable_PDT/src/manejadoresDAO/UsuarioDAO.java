@@ -9,6 +9,8 @@ import entidades.Rol;
 import entidades.TipoPublico;
 import entidades.TipoReceta;
 import manejadoresDAO.DatabaseManager;
+
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 
@@ -16,7 +18,7 @@ public class UsuarioDAO {
 
 	private static final String LOGIN = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO = ? AND U.CONTRASENA = ?";
 	private static final String INSERT_USUARIO = "INSERT INTO USUARIO (ID_USUARIO,DOCUMENTO,NOMBRE,APELLIDO,GENERO,CONTRASENA,CORREO_ELEC,ROL,FEC_NAC,NOM_USUARIO) VALUES (SEQ_ID_USUARIO.NEXTVAL,?,?,?,?,?,?,?,?,?)";
-	private static final String ALL_USUARIO = "SELECT * FROM USUARIO WHERE APELLIDO=? OR NOM_USUARIO=?";
+	private static final String ALL_USUARIO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.APELLIDO=? OR U.NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=? OR NOM_USUARIO=?";
 	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
@@ -104,8 +106,8 @@ public class UsuarioDAO {
 	}
 	
 	//Obtener todos los Usuarios por apellido o nombre (Administrador).
-	public static LinkedList<Usuario> findAll(String apellido,String nomUsuario){
-		LinkedList<Usuario> usuarios = new LinkedList<>();
+	public static ArrayList<Usuario> findAll(String apellido,String nomUsuario){
+		ArrayList<Usuario> usuarios = new ArrayList<>();
 		
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(ALL_USUARIO);

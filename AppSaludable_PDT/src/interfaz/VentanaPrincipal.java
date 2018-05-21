@@ -81,6 +81,16 @@ public class VentanaPrincipal extends JFrame {
 		
 		mntmBajas = new JMenuItem("Bajas");
 		mnAbm.add(mntmBajas);
+		mntmBajas.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+            	new BajaUsuario(frame);
+
+            	
+            }
+        });           	
+           
 		
 		mntmModificaciones = new JMenuItem("Modificaciones");
 		mnAbm.add(mntmModificaciones);

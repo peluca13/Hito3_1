@@ -3,9 +3,8 @@ package controladores;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
-
-import javax.management.relation.Role;
 
 import entidades.Rol;
 import entidades.TipoPublico;
@@ -13,6 +12,7 @@ import entidades.TipoReceta;
 import entidades.Usuario;
 import manejadoresDAO.UsuarioDAO;
 import interfaz.VentanaPrincipal;
+
 
 
 
@@ -100,11 +100,14 @@ public static boolean ingresarNuevoUsuario(String nombre, String apellido, Strin
 
 
 //Obtener todos los usuarios
-public List<Usuario> obtenerTodosUsuarios(String apellido, String nombre){
-	
-	return UsuarioDAO.findAll(apellido,nombre);
-}
+public static ArrayList<Usuario> obtenerInfoUsuarios(String apellido, String username){
 
+
+ArrayList<Usuario> infoUsuarios = UsuarioDAO.findAll(apellido,username);
+
+
+return infoUsuarios;
+}
 
 
 	
