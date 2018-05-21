@@ -37,6 +37,7 @@ public class AltaUsuario implements ActionListener{
 	private JTextField textFieldSegApe;
 	
 	private JDatePickerImpl datePicker;
+	private JComboBox comboBoxRol;
 	
 
 
@@ -180,6 +181,16 @@ public class AltaUsuario implements ActionListener{
 		label_4.setBounds(275, 264, 46, 14);
 		panel.add(label_4);
 		
+		JLabel lblRol = new JLabel("Rol");
+		lblRol.setBounds(10, 301, 46, 14);
+		panel.add(lblRol);
+		
+		comboBoxRol = new JComboBox();
+		comboBoxRol.setBounds(135, 298, 130, 20);
+		panel.add(comboBoxRol);
+		comboBoxRol.addItem("Usuario normal");
+		comboBoxRol.addItem("Personal Institucion");
+		
 
 		
 		JLabel lblNewLabel = new JLabel("Ingrese los datos del Usuario");
@@ -228,13 +239,15 @@ public class AltaUsuario implements ActionListener{
 		String fieldCorreo= this.textFieldCorreo.getText();
 		String fieldUsuario=this.textFieldUsuario.getText();
 		String fieldPass=this.textFieldPass.getText();
+		int fieldRol =0;
+		if(comboBoxRol.getSelectedItem().equals("Usuario normal"))fieldRol=1;
+		if(comboBoxRol.getSelectedItem().equals("Personal Institucion"))fieldRol=2;
 		
 
 		// check obligatorios
 		if (fieldNombre.equals("") || fieldApellido.equals("") ||fieldUsuario.equals("")|| fieldPass.equals("")||fecha==null) {
 			JOptionPane.showMessageDialog(frame, "Debe completar todos los datos obligatorios.", "Datos incompletos",
 					JOptionPane.WARNING_MESSAGE);
-
 			return;
 		}
 		
@@ -292,7 +305,7 @@ public class AltaUsuario implements ActionListener{
 		
 
 		// Almacenamos Usuario
-		boolean almacenado = ControladorUsuarios.ingresarNuevoUsuario(fieldNombre, fieldApellido, fieldDoc,fieldGenero,fieldCorreo,fecha,fieldUsuario,fieldPass);
+		boolean almacenado = ControladorUsuarios.ingresarNuevoUsuario(fieldNombre, fieldApellido, fieldDoc,fieldGenero,fieldCorreo,fecha,fieldUsuario,fieldPass,fieldRol);
 
 		if (almacenado) {
 			JOptionPane.showMessageDialog(frame, "El Usuario se ha creado con éxito.",

@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.management.relation.Role;
+
 import entidades.Rol;
 import entidades.TipoPublico;
 import entidades.TipoReceta;
@@ -70,13 +72,15 @@ public static boolean existeUsername(String username){
 //Alta Usuario
 	
 
-public static boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass){
+public static boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass,int userrol){
 	
 	boolean pudeCrear;
 	int idUser=1;
 	TipoReceta tiporeceta=TipoReceta.TODOS;
 	TipoPublico tipopublico=TipoPublico.TODOS;
-	Rol rol=Rol.USUARIO;
+	Rol rol = null;
+	if(userrol==1) {rol=Rol.USUARIO;}
+	if(userrol==2) {rol=Rol.PERSONAL_INSTITUCION;}	
 	Usuario user = new Usuario(idUser,doc,nombre,apellido,fecha,genero,correo,tipopublico,tiporeceta,rol,pass,usuario);
 	
 	try{
