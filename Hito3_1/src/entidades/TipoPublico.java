@@ -1,13 +1,13 @@
-package objetos;
+package entidades;
 
-public enum Categoria {
-	DESAYUNO(1,"Desayuno"),ALMUERZO(2,"Almuerzo"),MERIENDA(3,"Merienda"),CENA(4,"Cena");
+public enum TipoPublico {
+	TODOS(1,"Todos"),NINOS(2,"Niños"),ADULTOS(3,"Adultos");
 	
 	private int id;
 	private String nombre;
 	
 	//constructor
-	private Categoria(int id,String nombre) {
+	private TipoPublico(int id,String nombre) {
 		this.id=id;
 		this.nombre=nombre;
 	}

@@ -1,28 +1,30 @@
-package objetos;
+package entidades;
 
 import java.util.Date;
 
-public class IMC {
-	private Usuario usuario;
+public class Imc {
+	private int idImc;
 	private Date fecha;
 	private double altura;
 	private double peso;
+	private Usuario usuario;
 	
 	//constructor
-	public IMC(Usuario usuario, Date fecha, double altura, double peso) {
+	public Imc(int idImc,Date fecha, double altura, double peso,Usuario usuario) {
 		super();
-		this.usuario = usuario;
+		this.idImc=idImc;
 		this.fecha = fecha;
 		this.altura = altura;
 		this.peso = peso;
+		this.usuario = usuario;
 	}
 	
 	//getters and setters
-	public Usuario getUsuario() {
-		return usuario;
+	public int getIdImc() {
+		return idImc;
 	}
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setIdImc(int idImc) {
+		this.idImc=idImc;
 	}
 	public Date getFecha() {
 		return fecha;
@@ -41,6 +43,12 @@ public class IMC {
 	}
 	public void setPeso(double peso) {
 		this.peso = peso;
+	}
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 	
 	//to String

@@ -1,4 +1,4 @@
-package objetos;
+package entidades;
 
 public class Alimento {
 	
