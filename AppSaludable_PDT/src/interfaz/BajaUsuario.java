@@ -100,19 +100,20 @@ public class BajaUsuario implements ActionListener {
 	
 	public void cargarTabla(){
 		//Nombre de las columnas de la tabla
-        String[] columnas = new String[] { "Nombre", "Apellido", "Username", "Documento"};
+        String[] columnas = new String[] { "ID", "Nombre", "Apellido", "Username", "Documento"};
             
         //Se obtienen los usuarios para llenar la tabla
         ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
         /*Los datos de una tabla se pueden ver como una matriz o un doble array de objetos 
          * (ya que los campos son o numero o caraceres se especifica que el tipo de datos es un objeto genérico)*/
-        Object[][] datosTabla = new Object[usuarios.size()][4];
+        Object[][] datosTabla = new Object[usuarios.size()][5];
         int fila = 0;
         for(Usuario u : usuarios){
-        	datosTabla[fila][0] = u.getNombre();
-        	datosTabla[fila][1] = u.getApellido();
-        	datosTabla[fila][2] = u.getNomUsuario();
-        	datosTabla[fila][3] = u.getDocumento();
+        	datosTabla[fila][0] = u.getIdUsuario();
+        	datosTabla[fila][1] = u.getNombre();
+        	datosTabla[fila][2] = u.getApellido();
+        	datosTabla[fila][3] = u.getNomUsuario();
+        	datosTabla[fila][4] = u.getDocumento();
 			fila++;
         }
         
