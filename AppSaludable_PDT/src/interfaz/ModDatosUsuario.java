@@ -210,7 +210,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnCancelar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Cancelar();
+				dispose();
 			}
 		});
 		btnCancelar.setBounds(302, 437, 89, 23);
@@ -232,11 +232,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		sl_datePickerFecNac.putConstraint(SpringLayout.WEST, datePickerFecNac.getJFormattedTextField(), 10, SpringLayout.WEST, datePickerFecNac);
 		return datePickerFecNac;
 	}
-	
-	//Cancelar
-		private void Cancelar() {
-			frame.dispose();
-		}
 		
 		//Modificación datos
 		
