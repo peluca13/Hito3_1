@@ -8,6 +8,9 @@ import java.awt.event.ActionListener;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import entidades.Usuario;
+
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -25,6 +28,7 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem mntmVerModDatos;
 	private JMenuItem mntmAlturaPeso;
 	private JMenuItem mntmVerIMC;
+	private Usuario user;
 	
 
 	
@@ -123,8 +127,7 @@ public class VentanaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 
-            	new ModDatosUsuario(frame);
-
+            	new ModDatosUsuario(frame);            	
             	
             }
         }); 
@@ -132,6 +135,17 @@ public class VentanaPrincipal extends JFrame {
 		// Botón Ver evolución IMC.
 		mntmVerIMC = new JMenuItem("Agregar Peso Altura");
 		mnMenuUsuario.add(mntmVerIMC);
+		mntmVerIMC.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent event) {
+                
+            	new IngresoPesoAltura(user.getIdUsuario());
+            	
+            }
+        });
+		
+		
+		
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -162,7 +176,7 @@ public class VentanaPrincipal extends JFrame {
 		
 		
 	}
-	public void menuRol(String rol) {
+	public void menuRol(String rol,Usuario usuario) {
 		if(rol.equals("Administrador")) {
 			mnAbm.setVisible(true);
 		}
@@ -171,7 +185,10 @@ public class VentanaPrincipal extends JFrame {
 		}
 		if(rol.equals("Personal Institución")) {
 			mnAlturaPeso.setVisible(true);
+			
 		}
+		
+		user=usuario;
 	}
 	
 }

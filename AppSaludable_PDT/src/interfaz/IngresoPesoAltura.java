@@ -30,6 +30,7 @@ public class IngresoPesoAltura {
 	 */
 	public IngresoPesoAltura(int identificador) {
 		initialize(identificador);
+		System.out.println(identificador);
 	}
 
 	/**

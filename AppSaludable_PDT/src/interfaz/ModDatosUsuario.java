@@ -226,9 +226,9 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
         String[] columnas = new String[] { "ID", "Nombre", "Apellido", "Username", "Documento"};
             
         //Se obtienen los usuarios para llenar la tabla
-        ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
+       ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
         if(usuarios.isEmpty()) {
-        	idUsuario=0;
+       	idUsuario=0;
         	JOptionPane.showMessageDialog(frame, "El usuario solicitado, no fue encontrado en el sistema. Por favor realice nuevamente la búsqueda", "Buqueda",
 					JOptionPane.WARNING_MESSAGE);
 			return;

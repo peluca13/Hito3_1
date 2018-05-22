@@ -30,7 +30,7 @@ public class ControladorUsuarios {
 		}else {	validar=true;
 			VentanaPrincipal ventana= VentanaPrincipal.getFrame();
 			ventana.setVisible(true);
-			ventana.menuRol(usuario.getRol().getNombre());
+			ventana.menuRol(usuario.getRol().getNombre(),usuario);
 			
 			}
 		return validar;

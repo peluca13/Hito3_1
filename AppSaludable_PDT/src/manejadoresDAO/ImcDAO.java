@@ -28,7 +28,7 @@ public class ImcDAO {
 			ResultSet resultado = statement.executeQuery();
 			Imc imc = null;
 				if (resultado.next()){
-					imc = getImcFromResultSet(resultado); 
+					imc = getImcFromResultSet(resultado);
 				}
 					return imc;
 			}catch(SQLException e){
