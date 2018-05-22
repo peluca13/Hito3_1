@@ -11,7 +11,7 @@ public class DatabaseManager {
 	
 	private static Connection databaseConnection;
 	
-	private static String CONNECTION_STRING = "jdbc:oracle:thin:@192.168.0.189:1521:xe";
+	private static String CONNECTION_STRING = "jdbc:oracle:thin:@localhost:1521:xe";
 	private static String USUARIO = "PROYECTO";
 	private static String CLAVE = "PROYECTO";
 	

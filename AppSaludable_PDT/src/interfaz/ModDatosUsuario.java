@@ -3,6 +3,7 @@ package interfaz;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Date;
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -13,8 +14,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
 import controladores.ControladorUsuarios;
+import entidades.Usuario;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -196,6 +199,17 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		label4.setBounds(251, 214, 46, 14);
 		contentPane.add(label4);
 		
+			
+		JButton btnCancelar = new JButton("Cancelar");
+		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+			}
+		});
+		btnCancelar.setBounds(302, 437, 89, 23);
+		contentPane.add(btnCancelar);
+		
 		JButton btnGuardar = new JButton("Guardar cambios");
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnGuardar.addActionListener(new ActionListener() {
@@ -205,18 +219,68 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		});
 		btnGuardar.setBounds(89, 437, 152, 23);
 		contentPane.add(btnGuardar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setFont(new Font("Tahoma", Font.BOLD, 12));
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Cancelar();
-			}
-		});
-		btnCancelar.setBounds(302, 437, 89, 23);
-		contentPane.add(btnCancelar);
 	}
 	
+	public void cargarTabla(){
+		//Nombre de las columnas de la tabla
+        String[] columnas = new String[] { "ID", "Nombre", "Apellido", "Username", "Documento"};
+            
+        //Se obtienen los usuarios para llenar la tabla
+        ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
+        if(usuarios.isEmpty()) {
+        	idUsuario=0;
+        	JOptionPane.showMessageDialog(frame, "El usuario solicitado, no fue encontrado en el sistema. Por favor realice nuevamente la búsqueda", "Buqueda",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+        }
+        /*Los datos de una tabla se pueden ver como una matriz o un doble array de objetos 
+         * (ya que los campos son o numero o caraceres se especifica que el tipo de datos es un objeto genérico)*/
+        Object[][] datosTabla = new Object[usuarios.size()][5];
+        int fila = 0;
+        for(Usuario u : usuarios){
+        	datosTabla[fila][0] = u.getIdUsuario();
+        	datosTabla[fila][1] = u.getNombre();
+        	datosTabla[fila][2] = u.getApellido();
+        	datosTabla[fila][3] = u.getNomUsuario();
+        	datosTabla[fila][4] = u.getDocumento();
+			fila++;
+        }
+        
+		//Se crea un modelo para setearle a la tabla, de esta forma se indica los datos y las columnas
+		DefaultTableModel model = new DefaultTableModel(datosTabla, columnas) {
+			/*
+			 * Este codigo indica que las celdas no son editables y que son todas
+			 * del tipos String
+			 */
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+
+			@Override
+			public Class<?> getColumnClass(int columnIndex) {
+				return String.class;
+			}
+		};
+		
+
+		setModel(model);
+
+
+	}
+	
+
+
+	private void setModel(DefaultTableModel model) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void cambiarPass(int id) {
+		new NuevaPass(id);
+		
+		
+	}
 	
 		@Override
 		public void actionPerformed(ActionEvent e) {
@@ -232,11 +296,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		sl_datePickerFecNac.putConstraint(SpringLayout.WEST, datePickerFecNac.getJFormattedTextField(), 10, SpringLayout.WEST, datePickerFecNac);
 		return datePickerFecNac;
 	}
-	
-	//Cancelar
-		private void Cancelar() {
-			frame.dispose();
-		}
 		
 		//Modificación datos
 		
