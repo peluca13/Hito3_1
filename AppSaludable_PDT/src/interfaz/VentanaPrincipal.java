@@ -21,7 +21,9 @@ public class VentanaPrincipal extends JFrame {
 	private JMenuItem mntmBajas;
 	private JMenuItem mntmModificaciones;
 	private JMenu mnMenuUsuario;
+	private JMenu mnAlturaPeso;
 	private JMenuItem mntmVerModDatos;
+	private JMenuItem mntmAlturaPeso;
 	private JMenuItem mntmVerIMC;
 	
 
@@ -128,13 +130,36 @@ public class VentanaPrincipal extends JFrame {
         }); 
 		
 		// Botón Ver evolución IMC.
-		mntmVerIMC = new JMenuItem("Ver evolución de IMC");
+		mntmVerIMC = new JMenuItem("Agregar Peso Altura");
 		mnMenuUsuario.add(mntmVerIMC);
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		
+		//Menu Personal Institución
+
+				
+				//BOTON ALTAS BAJAS MODIFICACIONES
+				mnAlturaPeso = new JMenu("Ingreso de Datos");
+				menuBar.add(mnAlturaPeso);
+				mnAlturaPeso.setVisible(false);
+				
+				mntmAlturaPeso = new JMenuItem("Altura Peso");
+				mnAlturaPeso.add(mntmAlturaPeso);
+				mntmAlturaPeso.addActionListener(new ActionListener() {
+		            @Override
+		            public void actionPerformed(ActionEvent event) {
+		                
+		            	new InPesoAlturaPer();
+		            	
+		            }
+		        });
+		
+		
+		
 		
 	}
 	public void menuRol(String rol) {
@@ -143,6 +168,9 @@ public class VentanaPrincipal extends JFrame {
 		}
 		if(rol.equals("Usuario")) {
 			mnMenuUsuario.setVisible(true);
+		}
+		if(rol.equals("Personal Institución")) {
+			mnAlturaPeso.setVisible(true);
 		}
 	}
 	

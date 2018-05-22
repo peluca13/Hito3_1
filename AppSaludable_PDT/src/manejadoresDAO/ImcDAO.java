@@ -12,53 +12,40 @@ import java.util.LinkedList;
 
 public class ImcDAO {
 
-	private static final String INSERT_IMC = "INSERT INTO IMC (ID_IMC,FECHA,ALTURA,PESO,ID_USUARIO) VALUES (?,?,?,?,?)";
+	private static final String INSERT_IMC = "INSERT INTO IMC (ID_IMC,FECHA,ALTURA,PESO,ID_USUARIO) VALUES (SEQ_ID_IMC.NEXTVAL,?,?,?,?)";
 	private static final String INSERT_IMC_US = "INSERT INTO IMC (ID_IMC,ALTURA,PESO,ID_USUARIO) VALUES (?,?,?,?)";
 	private static final String ALL_IMC = "SELECT * FROM IMC";
 	private static final String UPDATE_IMC = "UPDATE IMC SET FECHA=?,ALTURA=?,PESO=?,ID_USUARIO=? WHERE ID_IMC=?";
 	private static final String DELETE_IMC = "DELETE FROM IMC WHERE ID_IMC=?";
-	private static final String IMC_ID = "SELECT * FROM IMC WHERE ID_IMC=?";
+	private static final String IMC_ID = "SELECT * FROM IMC WHERE ID_USUARIO=? AND FECHA=?";
 	
-	//Insertar IMC pasado por parámetro Personal Institución.
-	public static boolean insert(Imc imc){
+	//Validar existe imc fecha
+	public static Imc findId(int id, Date fecha){
 		try{
-			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC);
-			statement.setInt(1, imc.getIdImc());
-			statement.setDate(2,new java.sql.Date(imc.getFecha().getTime()));
-			statement.setDouble(3, imc.getAltura());
-			statement.setDouble(4, imc.getPeso());
-			statement.setInt(5, imc.getUsuario().getIdUsuario());
-														
-			int retorno = statement.executeUpdate();
-									
-			return retorno>0;
-				
-		}
-		catch(SQLException e){
-			e.printStackTrace();
-			return false;
+			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(IMC_ID);
+			statement.setInt(1, id);
+			statement.setDate(2,new java.sql.Date(fecha.getDate()));
+			ResultSet resultado = statement.executeQuery();
+			Imc imc = null;
+				if (resultado.next()){
+					imc = getImcFromResultSet(resultado);
+				}
+					return imc;
+			}catch(SQLException e){
+				e.printStackTrace();
+				return null;
+			}
 		}
 		
-	}
 	
 	//Insertar IMC pasado por parámetro Usuario común.
-		public static boolean insert2(Imc imc){
-			try{
-				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC_US);
-				statement.setInt(1, imc.getIdImc());
+		public static void insert(Imc imc) throws SQLException {
+				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC);
+				statement.setDate(1,new java.sql.Date(imc.getFecha().getDate()));
 				statement.setDouble(2, imc.getAltura());
 				statement.setDouble(3, imc.getPeso());
 				statement.setInt(4, imc.getUsuario().getIdUsuario());
-															
-				int retorno = statement.executeUpdate();
-										
-				return retorno>0;
-					
-			}
-			catch(SQLException e){
-				e.printStackTrace();
-				return false;
-			}
+				statement.executeUpdate();		
 			
 		}
 	

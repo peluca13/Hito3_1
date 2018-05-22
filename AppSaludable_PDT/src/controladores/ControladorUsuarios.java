@@ -6,10 +6,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import entidades.Imc;
 import entidades.Rol;
 import entidades.TipoPublico;
 import entidades.TipoReceta;
 import entidades.Usuario;
+import manejadoresDAO.ImcDAO;
 import manejadoresDAO.UsuarioDAO;
 import interfaz.VentanaPrincipal;
 
@@ -139,6 +141,21 @@ public static boolean cambiarPass(String password,int id) {
 	
 }
 
+//Controlar peso fecha
+
+public static boolean validarPesoFecha(int id, java.util.Date fecha) {
+	boolean existe;
+	Imc imc  = ImcDAO.findId(id,fecha);
+	
+	if (imc==null){
+		existe = false;
+	}
+	else{
+		existe = true;
+	}
+	
+	return existe;
+}
 
 
 //Obtener todos los usuarios
@@ -149,6 +166,25 @@ ArrayList<Usuario> infoUsuarios = UsuarioDAO.findAll(apellido,username);
 
 
 return infoUsuarios;
+}
+
+public static boolean ingresarIMC(int identificador, double altura, double peso, java.util.Date fecha) {
+	boolean imcOk;
+	int valorIMC=0;
+	Usuario usuario=ObtenerUsuario(identificador);
+	Imc imc = new Imc(1,fecha,altura,peso,usuario);
+	
+	try{
+		ImcDAO.insert(imc);
+		imcOk = true;
+	}
+	catch (SQLException e){
+		e.printStackTrace();
+		// ca va el codigo se falla el insert
+		imcOk = false;
+	}
+	
+	return imcOk;
 }
 
 
