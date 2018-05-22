@@ -46,18 +46,20 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 	private JComboBox comboBoxRol;
 	private JFrame frame;
 	private int fieldRol;
+	private Usuario user;
 
 	
 
 	/**
 	 * Create the frame.
 	 */
-	public ModDatosUsuario(VentanaPrincipal framePadre) {
+	public ModDatosUsuario(Usuario usuario) {
 		setResizable(false);
-		this.initialize(framePadre);
+		this.initialize();
+		user=usuario;
 		}
 	
-	private void initialize(JFrame framePadre) {
+	private void initialize() {
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(482, 535);
@@ -151,16 +153,19 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		txtNombre.setBounds(150, 40, 193, 20);
 		contentPane.add(txtNombre);
 		txtNombre.setColumns(10);
+		txtNombre.setText(user.getNombre());
 		
 		txtApellido = new JTextField();
 		txtApellido.setBounds(150, 81, 193, 20);
 		contentPane.add(txtApellido);
 		txtApellido.setColumns(10);
+		txtApellido.setText(user.getApellido());
 		
 		txtDoc = new JTextField();
 		txtDoc.setBounds(150, 118, 130, 20);
 		contentPane.add(txtDoc);
 		txtDoc.setColumns(10);
+		txtDoc.setText(user.getDocumento());
 		
 		this.datePicker = this.createDatePicker();
 		datePicker.setBounds(150, 167, 130, 20);
@@ -176,16 +181,19 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		txtCorreo.setBounds(150, 256, 193, 20);
 		contentPane.add(txtCorreo);
 		txtCorreo.setColumns(10);
+		txtCorreo.setText(user.getCorreoElec());
 		
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(150, 303, 193, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
+		txtUsuario.setText(user.getNomUsuario());
 		
 		txtPass = new JTextField();
 		txtPass.setBounds(150, 347, 193, 20);
 		contentPane.add(txtPass);
 		txtPass.setColumns(10);
+		txtPass.setText(user.getContrasena());
 		
 		JLabel label3 = new JLabel("(*)");
 		label3.setHorizontalAlignment(SwingConstants.CENTER);
@@ -221,60 +229,10 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		contentPane.add(btnGuardar);
 	}
 	
-	public void cargarTabla(){
-		//Nombre de las columnas de la tabla
-        String[] columnas = new String[] { "ID", "Nombre", "Apellido", "Username", "Documento"};
-            
-        //Se obtienen los usuarios para llenar la tabla
-       ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
-        if(usuarios.isEmpty()) {
-       	idUsuario=0;
-        	JOptionPane.showMessageDialog(frame, "El usuario solicitado, no fue encontrado en el sistema. Por favor realice nuevamente la búsqueda", "Buqueda",
-					JOptionPane.WARNING_MESSAGE);
-			return;
-        }
-        /*Los datos de una tabla se pueden ver como una matriz o un doble array de objetos 
-         * (ya que los campos son o numero o caraceres se especifica que el tipo de datos es un objeto genérico)*/
-        Object[][] datosTabla = new Object[usuarios.size()][5];
-        int fila = 0;
-        for(Usuario u : usuarios){
-        	datosTabla[fila][0] = u.getIdUsuario();
-        	datosTabla[fila][1] = u.getNombre();
-        	datosTabla[fila][2] = u.getApellido();
-        	datosTabla[fila][3] = u.getNomUsuario();
-        	datosTabla[fila][4] = u.getDocumento();
-			fila++;
-        }
-        
-		//Se crea un modelo para setearle a la tabla, de esta forma se indica los datos y las columnas
-		DefaultTableModel model = new DefaultTableModel(datosTabla, columnas) {
-			/*
-			 * Este codigo indica que las celdas no son editables y que son todas
-			 * del tipos String
-			 */
-			@Override
-			public boolean isCellEditable(int row, int column) {
-				return false;
-			}
-
-			@Override
-			public Class<?> getColumnClass(int columnIndex) {
-				return String.class;
-			}
-		};
-		
-
-		setModel(model);
-
-
-	}
+	
 	
 
 
-	private void setModel(DefaultTableModel model) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	public void cambiarPass(int id) {
 		new NuevaPass(id);
@@ -320,6 +278,10 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 						JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			
+			
+			//Dejo fecha usuario
+			if(fecha==null) {fecha=user.getFecNac();}
 			
 	        		
 			// Valida que usuario no exista con mismo documento
@@ -375,7 +337,8 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			
 
 			// Almacenamos Usuario
-			boolean almacenado = ControladorUsuarios.ingresarNuevoUsuario(fieldNombre, fieldApellido, fieldDoc,fieldGenero,fieldCorreo,fecha,fieldUsuario,fieldPass,fieldRol);
+			Usuario usermod=new Usuario(user.getIdUsuario(),fieldDoc,fieldNombre,fieldApellido,fecha,fieldGenero,fieldCorreo,user.getTipoPublico(),user.getTipoReceta(),user.getRol(),fieldPass,user.getNomUsuario());
+			boolean almacenado = ControladorUsuarios.ActualizarUsuario(usermod);
 
 			if (almacenado) {
 				JOptionPane.showMessageDialog(frame, "El Usuario se ha actualizado con éxito.",

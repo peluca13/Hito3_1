@@ -187,6 +187,22 @@ public static boolean ingresarIMC(int identificador, double altura, double peso,
 	return imcOk;
 }
 
+public static boolean ActualizarUsuario(Usuario User) {
+	boolean update;
+	try{
+		UsuarioDAO.edit(User);
+		update = true;
+	}
+	catch (SQLException e){
+		e.printStackTrace();
+		// ca va el codigo se falla el insert
+		update = false;
+	}
+	
+	return update;
+
+}
+
 
 	
 }

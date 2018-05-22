@@ -127,7 +127,7 @@ public class VentanaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 
-            	new ModDatosUsuario(frame);            	
+            	new ModDatosUsuario(user);            	
             	
             }
         }); 

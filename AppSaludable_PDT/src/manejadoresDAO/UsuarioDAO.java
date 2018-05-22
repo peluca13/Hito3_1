@@ -21,7 +21,7 @@ public class UsuarioDAO {
 	private static final String ALL_USUARIO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.APELLIDO=? OR U.NOM_USUARIO=?";
 	private static final String UPDATE_CONT_USUARIO = "UPDATE USUARIO SET CONTRASENA=? WHERE ID_USUARIO=?";
 	private static final String DELETE_USUARIO = "DELETE FROM USUARIO WHERE ID_USUARIO=?";
-	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE NOM_USUARIO=?";
+	private static final String UPDATE_USUARIO= "UPDATE USUARIO SET DOCUMENTO=?,NOMBRE=?,APELLIDO=?,GENERO=?,CONTRASENA=?,CORREO_ELEC=?FEC_NAC=? WHERE ID_USUARIO=?";
 	private static final String USUARIO_ID = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.ID_USUARIO=?";
 	private static final String USUARIO_USERNAME = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.NOM_USUARIO=?";
 	private static final String USUARIO_DOCUMENTO = "SELECT U.ID_USUARIO,U.DOCUMENTO,U.NOMBRE,U.APELLIDO,U.GENERO,U.CONTRASENA,U.CORREO_ELEC,R.NOMBRE ROL,U.FEC_NAC,U.NOM_USUARIO,P.NOMBRE PUBLICO,D.NOMBRE DIETA FROM USUARIO U INNER JOIN PUBLICO P ON U.TIPO_PUBLICO=P.ID_PUBLICO INNER JOIN DIETA D ON U.TIPO_RECETA=D.ID_DIETA INNER JOIN ROL R ON U.ROL=R.ID_ROL WHERE U.DOCUMENTO=?";
@@ -113,8 +113,7 @@ public class UsuarioDAO {
 	}
 	
 	//Editar todos los datos de un Usuario excepto el Nombre Usuario, ID y Rol (Usuario común).
-	public static boolean edit(Usuario usuario){
-		try{
+	public static void edit(Usuario usuario) throws SQLException{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(UPDATE_USUARIO);
 			statement.setString(1, usuario.getDocumento());
 			statement.setString(2, usuario.getNombre());
@@ -123,15 +122,10 @@ public class UsuarioDAO {
 			statement.setString(5, usuario.getContrasena());
 			statement.setString(6, usuario.getCorreoElec());
 			statement.setDate(7,new java.sql.Date(usuario.getFecNac().getTime()));
-			statement.setString(8, usuario.getNomUsuario());
-					
-			int retorno = statement.executeUpdate();
+			statement.setInt(8, usuario.getIdUsuario());
+			statement.executeUpdate();
 		
-			return retorno>0;
-			}catch(SQLException e){
-				e.printStackTrace();
-				return false;
-			}
+			
 	}
 	
 	//Obtener un Usuario por id.
