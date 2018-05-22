@@ -38,7 +38,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 	private JTextField txtApellido;
 	private JTextField txtDoc;
 	private JTextField txtCorreo;
-	private JTextField txtUsuario;
 	private JTextField txtPass;
 	private JComboBox comboBoxGenero;
 	private JTextField textFieldSegApe;
@@ -46,7 +45,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 	private JComboBox comboBoxRol;
 	private JFrame frame;
 	private int fieldRol;
-	private Usuario user;
 
 	
 
@@ -55,11 +53,10 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 	 */
 	public ModDatosUsuario(Usuario usuario) {
 		setResizable(false);
-		this.initialize();
-		user=usuario;
+		this.initialize(usuario);
 		}
 	
-	private void initialize() {
+	private void initialize(Usuario user) {
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(482, 535);
@@ -109,11 +106,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		lblCorreoElec.setBounds(31, 258, 130, 14);
 		contentPane.add(lblCorreoElec);
 		
-		JLabel lblNomUsuario = new JLabel("Nombre Usuario");
-		lblNomUsuario.setFont(new Font("Tahoma", Font.BOLD, 12));
-		lblNomUsuario.setBounds(31, 306, 109, 14);
-		contentPane.add(lblNomUsuario);
-		
 		JLabel lblContrasena = new JLabel("Contrase\u00F1a");
 		lblContrasena.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblContrasena.setBounds(31, 350, 83, 14);
@@ -136,12 +128,6 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		label2.setHorizontalAlignment(SwingConstants.CENTER);
 		label2.setBounds(347, 83, 46, 14);
 		contentPane.add(label2);
-		
-		JLabel label5 = new JLabel("(*)");
-		label5.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label5.setHorizontalAlignment(SwingConstants.CENTER);
-		label5.setBounds(347, 306, 46, 14);
-		contentPane.add(label5);
 		
 		JLabel label6 = new JLabel("(*)");
 		label6.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -183,23 +169,11 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		txtCorreo.setColumns(10);
 		txtCorreo.setText(user.getCorreoElec());
 		
-		txtUsuario = new JTextField();
-		txtUsuario.setBounds(150, 303, 193, 20);
-		contentPane.add(txtUsuario);
-		txtUsuario.setColumns(10);
-		txtUsuario.setText(user.getNomUsuario());
-		
 		txtPass = new JTextField();
 		txtPass.setBounds(150, 347, 193, 20);
 		contentPane.add(txtPass);
 		txtPass.setColumns(10);
 		txtPass.setText(user.getContrasena());
-		
-		JLabel label3 = new JLabel("(*)");
-		label3.setHorizontalAlignment(SwingConstants.CENTER);
-		label3.setFont(new Font("Tahoma", Font.BOLD, 12));
-		label3.setBounds(279, 173, 46, 14);
-		contentPane.add(label3);
 		
 		JLabel label4 = new JLabel("(*)");
 		label4.setHorizontalAlignment(SwingConstants.CENTER);
@@ -222,7 +196,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		btnGuardar.setFont(new Font("Tahoma", Font.BOLD, 12));
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ModificarDatos();
+				ModificarDatos(user);
 			}
 		});
 		btnGuardar.setBounds(89, 437, 152, 23);
@@ -257,7 +231,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		
 		//Modificación datos
 		
-		private void ModificarDatos() {
+		private void ModificarDatos(Usuario user) {
 
 
 			String fieldNombre = this.txtNombre.getText();
@@ -268,12 +242,11 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=1;
 			if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=2;
 			String fieldCorreo= this.txtCorreo.getText();
-			String fieldUsuario=this.txtUsuario.getText();
 			String fieldPass=this.txtPass.getText();
 			
 
 			// check obligatorios
-			if (fieldNombre.equals("") || fieldApellido.equals("") ||fieldUsuario.equals("")|| fieldPass.equals("")||fecha==null) {
+			if (fieldNombre.equals("") || fieldApellido.equals("") || fieldPass.equals("")) {
 				JOptionPane.showMessageDialog(frame, "Debe completar todos los datos obligatorios.", "Datos incompletos",
 						JOptionPane.WARNING_MESSAGE);
 				return;
@@ -296,15 +269,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			}
 			}
 			
-			// Valida que usuario no exista con mismo username
-					boolean existeUsername = ControladorUsuarios.existeUsername(fieldUsuario);
 
-					if (existeUsername) {
-						JOptionPane.showMessageDialog(frame, "El nombre de usuario ya se encuentra ingresado para otro usuario",
-								"Username Existente.", JOptionPane.WARNING_MESSAGE);
-
-						return;
-					}
 			//Largo caracteres		
 			if(fieldNombre.length()>=50) {
 				JOptionPane.showMessageDialog(frame, "El campo nombre debe ser igual o menor a 50 caracteres",
