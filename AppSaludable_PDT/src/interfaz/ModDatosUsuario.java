@@ -310,7 +310,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 						"Usuario Agregado!", JOptionPane.INFORMATION_MESSAGE);
 				
 				// cerramos la ventanta
-				this.frame.dispose();
+				dispose();
 
 				
 			}
