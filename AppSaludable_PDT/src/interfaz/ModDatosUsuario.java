@@ -56,8 +56,8 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		this.initialize(usuario);
 		}
 	
-	private void initialize(Usuario user) {
-	
+	private void initialize(Usuario usuario) {
+		Usuario user=ControladorUsuarios.ObtenerUsuario(usuario.getIdUsuario());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setSize(482, 535);
 		setLocationRelativeTo(null);
@@ -233,7 +233,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		
 		private void ModificarDatos(Usuario user) {
 
-
+			
 			String fieldNombre = this.txtNombre.getText();
 			String fieldApellido = this.txtApellido.getText();
 			Date fecha = (Date) this.datePicker.getModel().getValue();
