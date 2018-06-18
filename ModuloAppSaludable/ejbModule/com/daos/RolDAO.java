@@ -28,9 +28,7 @@ public class RolDAO {
 
     
     //Guardar un nuevo ROL.
-    public Long guardarRol(String nombre) {
-    	Rol rol = new Rol();
-    	rol.setNombre(nombre);
+    public Long guardarRol(Rol rol) {
     	this.em.persist(rol);
     	return rol.getIdRol();
     }
@@ -61,7 +59,7 @@ public class RolDAO {
     
     //Obtener todos los ROLES.
     public List<Rol> obtenerTodosRoles(){
-    	TypedQuery<Rol> query = this.em.createQuery("SELECT r FROM Rol r", Rol.class);
+    	TypedQuery<Rol> query = this.em.createQuery("SELECT r FROM ROL r", Rol.class);
 		return query.getResultList();
     }
 }
