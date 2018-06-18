@@ -23,11 +23,11 @@ public class Imc implements Serializable{
 	@Column(name="FECHA",nullable=false,unique=true)
 	private Date fecha;
 	
-	@Column(name="ALTURA",length=38,nullable=false)
-	private double altura;
+	@Column(name="ALTURA",nullable=false)
+	private int altura;
 	
-	@Column(name="PESO",length=38,nullable=false)
-	private double peso;
+	@Column(name="PESO",nullable=false)
+	private int peso;
 	
 	//constructor por defecto.
 	public Imc() {
@@ -35,7 +35,7 @@ public class Imc implements Serializable{
 	}
 	
 	//constructor
-	public Imc(Date fecha, double altura, double peso) {
+	public Imc(Date fecha, int altura, int peso) {
 		super();
 		this.fecha = fecha;
 		this.altura = altura;
@@ -55,16 +55,16 @@ public class Imc implements Serializable{
 	public void setFecha(Date fecha) {
 		this.fecha = fecha;
 	}
-	public double getAltura() {
+	public int getAltura() {
 		return altura;
 	}
-	public void setAltura(double altura) {
+	public void setAltura(int altura) {
 		this.altura = altura;
 	}
-	public double getPeso() {
+	public int getPeso() {
 		return peso;
 	}
-	public void setPeso(double peso) {
+	public void setPeso(int peso) {
 		this.peso = peso;
 	}
 	

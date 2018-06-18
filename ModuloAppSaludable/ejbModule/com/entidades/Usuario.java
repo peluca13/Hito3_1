@@ -32,7 +32,7 @@ public class Usuario implements Serializable{
 	private String apellido;
 	
 	@Column(name="GENERO",nullable=false)
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.ORDINAL)
 	private Genero genero;
 	
 	@Column(name="CONTRASENA",length=50,nullable=false)

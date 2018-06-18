@@ -33,9 +33,9 @@ public class Receta  implements Serializable{
 	private String nombre;
 	
 	@Column(name="CALORIAS_TOTALES",nullable=false)
-	private double caloriasTotales;
+	private int caloriasTotales;
 	
-	@Column(name="DESCCRIPCION",length=50,nullable=false)
+	@Column(name="DESCRIPCION",length=50,nullable=false)
 	private String descripcion;
 	
 	@ManyToOne
@@ -61,7 +61,7 @@ public class Receta  implements Serializable{
 	}
 		
 	//constructor
-	public Receta(String nombre,String descripcion,double caloriasTotales,Categoria categoria,TipoPublico tipoPublico,
+	public Receta(String nombre,String descripcion,int caloriasTotales,Categoria categoria,TipoPublico tipoPublico,
 			TipoDieta tipoDieta,List<Ingrediente> ingredientes) {
 		super();
 		this.nombre = nombre;
@@ -92,10 +92,10 @@ public class Receta  implements Serializable{
 	public void setDescripcion(String descripcion) {
 		this.descripcion=descripcion;
 	}
-	public double getCaloriasTotales() {
+	public int getCaloriasTotales() {
 		return caloriasTotales;
 	}
-	public void setCaloriasTotales(double caloriasTotales) {
+	public void setCaloriasTotales(int caloriasTotales) {
 		this.caloriasTotales=caloriasTotales;
 	}
 	public Categoria getCategoria() {

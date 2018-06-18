@@ -29,26 +29,26 @@ public class Alimento implements Serializable{
 	@Column(name="NOMBRE",length=50,unique=true,nullable=false)
 	private String nombre;
 	
-	@Column(name="AZUCAR",nullable=false)
-	private double azucar;
+	@Column(name="AZUCAR",length=50,nullable=false)
+	private String azucar;
 	
 	@Column(name="CLORURO_SODIO",nullable=false)
-	private double cloruroSodio;
+	private int cloruroSodio;
 	
 	@Column(name="VALORESXPORCION",nullable=false)
-	private double valorXPorcion;
+	private int valorXPorcion;
 	
 	@Column(name="GRASAS_TRANS",nullable=false)
-	private double grasasTrans;
+	private int grasasTrans;
 	
-	@Column(name="VALOR_ENERGENTICO",nullable=false)
-	private double valorEnergetico;
+	@Column(name="VALOR_ENERGETICO",nullable=false)
+	private int valorEnergetico;
 	
 	@Column(name="CALORIAS",nullable=false)
-	private double calorias;
+	private int calorias;
 		
 	@Column(name="GRASAS_SATURADAS",nullable=false)
-	private double grasasSaturadas;
+	private int grasasSaturadas;
 	
 	//constructor por defecto.
 	public Alimento() {
@@ -56,7 +56,7 @@ public class Alimento implements Serializable{
 	}
 	
 	//constructor
-	public Alimento(String nombre,double azucar,double cloruroSodio,double valorXPorcion,double grasasTrans,double valorEnergetico,double calorias,double grasasSaturadas) {
+	public Alimento(String nombre,String azucar,int cloruroSodio,int valorXPorcion,int grasasTrans,int valorEnergetico,int calorias,int grasasSaturadas) {
 		super();
 		this.nombre=nombre;
 		this.azucar=azucar;
@@ -81,46 +81,46 @@ public class Alimento implements Serializable{
 	public void setNombre(String nombre) {
 		this.nombre=nombre;
 	}
-	public double getValorXPorcion() {
+	public int getValorXPorcion() {
 		return valorXPorcion;
 	}
-	public void setValorXPorcion(double valorXPorcion) {
+	public void setValorXPorcion(int valorXPorcion) {
 		this.valorXPorcion=valorXPorcion;
 	}
-	public double getCalorias() {
+	public int getCalorias() {
 		return calorias;
 	}
-	public  void setCalorias(double calorias) {
+	public  void setCalorias(int calorias) {
 		this.calorias=calorias;
 	}
-	public double getValorEnergetico() {
+	public int getValorEnergetico() {
 		return valorEnergetico;
 	}
-	public void setValorEnergetico(double valorEnergetico) {
+	public void setValorEnergetico(int valorEnergetico) {
 		this.valorEnergetico=valorEnergetico;
 	}
-	public double getAzucar() {
+	public String getAzucar() {
 		return azucar;
 	}
-	public void setAzucar(double azucar) {
+	public void setAzucar(String azucar) {
 		this.azucar=azucar;
 	}
-	public double getcloruroSodio() {
+	public int getcloruroSodio() {
 		return cloruroSodio;
 	}
-	public void setCloruroSodio(double cloruroSodio) {
+	public void setCloruroSodio(int cloruroSodio) {
 		this.cloruroSodio=cloruroSodio;
 	}
-	public double getGrasasTrans() {
+	public int getGrasasTrans() {
 		return grasasTrans;
 	}
-	public void setGrasasTrans(double grasasTrans) {
+	public void setGrasasTrans(int grasasTrans) {
 		this.grasasTrans=grasasTrans;
 	}
-	public double getGrasasSaturadas() {
+	public int getGrasasSaturadas() {
 		return grasasSaturadas;
 	}
-	public void setGrasasSaturadas(double grasasSaturadas) {
+	public void setGrasasSaturadas(int grasasSaturadas) {
 		this.grasasSaturadas=grasasSaturadas;
 	}
 	
