@@ -26,6 +26,7 @@ public class Receta  implements Serializable{
 	@Id
 	@GeneratedValue(generator="RecetaSeq",strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="RecetaSeq",sequenceName="SEQ_ID_RECETA",initialValue=1,allocationSize=1)
+	@Column(name="ID_RECETA")
 	private Long idReceta;
 	
 	@Column(name="NOMBRE",length=50,unique=true,nullable=false)

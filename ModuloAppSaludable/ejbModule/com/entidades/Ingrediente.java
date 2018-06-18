@@ -23,6 +23,7 @@ public class Ingrediente implements Serializable{
 	@Id
 	@GeneratedValue(generator="IngredienteSeq",strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="IngredienteSeq",sequenceName="SEQ_ID_COMPONE",initialValue=1,allocationSize=1)
+	@Column(name="ID_COMPOSICION")
 	private Long idComposicion;
 	
 	@Column(name="CANTIDAD_PORCIONES",nullable=false)

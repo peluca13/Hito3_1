@@ -23,6 +23,7 @@ public class Alimento implements Serializable{
 	@Id
 	@GeneratedValue(generator="AlimentoSeq",strategy=GenerationType.SEQUENCE)
 	@SequenceGenerator(name="AlimentoSeq",sequenceName="SEQ_ID_ALIMENTO",initialValue=1,allocationSize=1)
+	@Column(name="ID_ALIMENTO")
 	private Long idAlimento;
 	
 	@Column(name="NOMBRE",length=50,unique=true,nullable=false)
