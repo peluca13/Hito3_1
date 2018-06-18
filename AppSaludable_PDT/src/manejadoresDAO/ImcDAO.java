@@ -8,6 +8,7 @@ import entidades.Usuario;
 import manejadoresDAO.DatabaseManager;
 import java.util.Date;
 import java.util.LinkedList;
+import java.text.SimpleDateFormat;
 
 
 public class ImcDAO {
@@ -21,10 +22,12 @@ public class ImcDAO {
 	
 	//Validar existe imc fecha
 	public static Imc findId(int id, Date fecha){
+		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		DATE_FORMAT.format(fecha);
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(IMC_ID);
 			statement.setInt(1, id);
-			statement.setDate(2,new java.sql.Date(fecha.getDate()));
+			statement.setDate(2,new java.sql.Date(fecha.getTime()));
 			ResultSet resultado = statement.executeQuery();
 			Imc imc = null;
 				if (resultado.next()){
@@ -41,7 +44,7 @@ public class ImcDAO {
 	//Insertar IMC pasado por parámetro Usuario común.
 		public static void insert(Imc imc) throws SQLException {
 				PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(INSERT_IMC);
-				statement.setDate(1,new java.sql.Date(imc.getFecha().getDate()));
+				statement.setDate(1,new java.sql.Date(imc.getFecha().getTime()));
 				statement.setDouble(2, imc.getAltura());
 				statement.setDouble(3, imc.getPeso());
 				statement.setInt(4, imc.getUsuario().getIdUsuario());
