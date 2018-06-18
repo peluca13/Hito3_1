@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -28,7 +29,7 @@ public class Ingrediente implements Serializable{
 	private int cantidadPorciones;
 	
 	@ManyToOne
-	@Column(name="ID_ALIMENTO",unique=true,nullable=false)
+	@JoinColumn(name="ID_ALIMENTO",unique=true,nullable=false)
 	private Alimento alimento;
 	
 	//constructor por defecto.

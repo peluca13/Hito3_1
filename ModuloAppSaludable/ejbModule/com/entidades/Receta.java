@@ -38,15 +38,15 @@ public class Receta  implements Serializable{
 	private String descripcion;
 	
 	@ManyToOne
-	@Column(name="ID_CATEGORIA",nullable=false)
+	@JoinColumn(name="ID_CATEGORIA",nullable=false)
 	private Categoria categoria;
 	
 	@ManyToOne
-	@Column(name="ID_PUBLICO",nullable=false)
+	@JoinColumn(name="ID_PUBLICO",nullable=false)
 	private TipoPublico tipoPublico;
 	
 	@ManyToOne
-	@Column(name="ID_DIETA",nullable=false)
+	@JoinColumn(name="ID_DIETA",nullable=false)
 	private TipoDieta tipoDieta;
 	
 	@OneToMany

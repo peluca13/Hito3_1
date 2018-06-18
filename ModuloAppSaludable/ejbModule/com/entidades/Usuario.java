@@ -42,7 +42,7 @@ public class Usuario implements Serializable{
 	private String correoElec;
 	
 	@ManyToOne
-	@Column(name="ROL",nullable=false)
+	@JoinColumn(name="ROL",nullable=false)
 	private Rol rol;
 		
 	@Column(name="FEC_NAC",nullable=false)
@@ -52,11 +52,11 @@ public class Usuario implements Serializable{
 	private String nomUsuario;
 	
 	@ManyToOne
-	@Column(name="TIPO_PUBLICO")
+	@JoinColumn(name="TIPO_PUBLICO")
 	private TipoPublico tipoPublico;
 	
 	@ManyToOne
-	@Column(name="TIPO_DIETA")
+	@JoinColumn(name="TIPO_DIETA")
 	private TipoDieta tipoDieta;
 	
 	@OneToMany(cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
