@@ -27,7 +27,7 @@ public class ImcDAO {
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 		DATE_FORMAT.format(fecha);
 		Imc imc = null;
-		return imc = (Imc) em.createQuery("SELECT i FROM IMC i WHERE i.ID_USUARIO LIKE :idUsuario AND i.FECHA LIKE :fecha")
+		return imc = (Imc) em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :idUsuario AND i.fecha LIKE :fecha")
 				.setParameter("idUsuario", idUsuario)
 				.setParameter("fecha", new java.sql.Date(fecha.getTime()))
 				.getResultList();
@@ -55,7 +55,7 @@ public class ImcDAO {
 	
 	//Obtener todos los IMC.
 	public LinkedList<Imc> findAll() throws SQLException{
-		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM IMC i",Imc.class);
+		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM Imc i",Imc.class);
 			return (LinkedList<Imc>) query.getResultList();
 	}
 		

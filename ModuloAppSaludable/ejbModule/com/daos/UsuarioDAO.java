@@ -28,7 +28,7 @@ public class UsuarioDAO {
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
 	public Usuario login(String nomUsuario,String contrasena) throws SQLException{
 		Usuario usuario = null;
-  			return usuario = (Usuario) em.createQuery("SELECT u FROM USUARIO u WHERE u.NOM_USUARIO LIKE :nomUsuario AND u.CONTRASENA LIKE :contrasena")
+  			return usuario = (Usuario) em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomUsuario AND u.contrasena LIKE :contrasena")
   					.setParameter("nomUsuario", nomUsuario)
   					.setParameter("contrasena",contrasena)
   					.getResultList();
@@ -59,7 +59,7 @@ public class UsuarioDAO {
   	public ArrayList<Usuario> findAll(String apellido,String nomUsuario) throws SQLException{
   		ArrayList<Usuario> usuarios = new ArrayList<>();
   		
-  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM USUARIO u WHERE u.APELLIDO LIKE :apellido OR u.NOM_USUARIO WHERE LIKE :nomUsuario",Usuario.class)
+  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.apellido LIKE :apellido OR u.nomUsuario WHERE LIKE :nomUsuario",Usuario.class)
 				.setParameter("apellido", apellido)
 				.setParameter("nomUsuario", nomUsuario);
   			return (ArrayList<Usuario>) query.getResultList();
@@ -78,14 +78,14 @@ public class UsuarioDAO {
   	
   	//Obtener un Usuario por username.
   	public Usuario findByUser(String username) throws SQLException{
-  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.NOM_USUARIO LIKE :nomUsuario",Usuario.class)
+  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomUsuario",Usuario.class)
   				.setParameter("nomUsuario", username);
   		return (Usuario) query.getResultList();
   		}
   		
   	//Obtener un Usuario por documento.
   	public Usuario findByDoc(String documentoUsuario) throws SQLException{
-  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.DOCUMENTO LIKE :documento",Usuario.class)
+  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u WHERE u.documento LIKE :documento",Usuario.class)
 				.setParameter("documento", documentoUsuario);
 		return (Usuario) query.getResultList();
   	}

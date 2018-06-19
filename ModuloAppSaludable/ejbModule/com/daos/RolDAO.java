@@ -52,7 +52,7 @@ public class RolDAO {
     
     //Obtener todos los ROLES.
     public List<Rol> obtenerTodosRoles(){
-    	TypedQuery<Rol> query = this.em.createQuery("SELECT r FROM ROL r", Rol.class);
+    	TypedQuery<Rol> query = this.em.createQuery("SELECT r FROM Rol r", Rol.class);
 		return query.getResultList();
     }
 }
