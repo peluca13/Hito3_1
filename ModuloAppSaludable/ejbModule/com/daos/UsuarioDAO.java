@@ -12,7 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import com.entidades.Genero;
 import com.entidades.Usuario;
 
 /**
@@ -36,10 +35,9 @@ public class UsuarioDAO {
 	}
   	
   	//Insertar Usuario pasado por parámetro (Administrador).
-  	public Long insert(Usuario usuario) throws SQLException {
+  	public void insert(Usuario usuario) throws SQLException {
   		this.em.persist(usuario);
   		this.em.flush();
-  		return usuario.getIdUsuario();
   	}
   		
    	
@@ -68,15 +66,8 @@ public class UsuarioDAO {
   	}
   	
   	//Editar todos los datos de un Usuario excepto el Nombre Usuario, ID y Rol (Usuario común).
-  	public void edit(String documento,String nombre,String apellido,Genero genero,String contrasena,String correoElec,Date fecNac,Long idUsuario) throws SQLException{
-  		Usuario u = this.em.find(Usuario.class, idUsuario);
-  			u.setDocumento(documento);
-  			u.setNombre(nombre);
-  			u.setApellido(apellido);
-  			u.setGenero(genero);
-  			u.setContrasena(contrasena);
-  			u.setCorreoElec(correoElec);
-  			u.setFecNac(new java.sql.Date(u.getFecNac().getTime()));
+  	public void edit(Usuario usuario) throws SQLException{
+  			this.em.merge(usuario);
   			this.em.flush();
   	}
   	
