@@ -20,12 +20,6 @@ public class TipoPublicoDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
-    /**
-     * Default constructor. 
-     */
-    public TipoPublicoDAO() {
-    }
     
   //Guardar un nuevo TipoPublico.
     public Long guardarTipoPublico(TipoPublico tipoPublico) {

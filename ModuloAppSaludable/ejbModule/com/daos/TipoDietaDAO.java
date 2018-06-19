@@ -21,11 +21,6 @@ public class TipoDietaDAO {
 	@PersistenceContext
 	private EntityManager em;
 	
-    /**
-     * Default constructor. 
-     */
-    public TipoDietaDAO() {
-    }
 
     //Guardar un nuevo TipoDieta.
     public Long guardarTipoDieta(TipoDieta tipoDieta) {

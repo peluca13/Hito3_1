@@ -19,14 +19,7 @@ public class RolDAO {
 
 	@PersistenceContext
 	private EntityManager em;
-	
-    /**
-     * Default constructor. 
-     */
-    public RolDAO() {
-    }
 
-    
     //Guardar un nuevo ROL.
     public Long guardarRol(Rol rol) {
     	this.em.persist(rol);

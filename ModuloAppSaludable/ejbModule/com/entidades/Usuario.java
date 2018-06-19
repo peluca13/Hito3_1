@@ -117,7 +117,7 @@ public class Usuario implements Serializable{
 	public Date getFecNac() {
 		return fecNac;
 	}
-	public void setFechaNac(Date fecNac) {
+	public void setFecNac(Date fecNac) {
 		this.fecNac = fecNac;
 	}
 	public Genero getGenero() {
