@@ -11,7 +11,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
-
 import com.entidades.Usuario;
 
 /**
@@ -27,7 +26,7 @@ public class UsuarioDAO {
   
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
 	public Usuario login(String nomUsuario,String contrasena) throws SQLException{
-		Usuario usuario = null;
+			Usuario usuario = null;
   			return usuario = (Usuario) em.createQuery("SELECT u FROM USUARIO u WHERE u.NOM_USUARIO LIKE :nomUsuario AND u.CONTRASENA LIKE :contrasena")
   					.setParameter("nomUsuario", nomUsuario)
   					.setParameter("contrasena",contrasena)
