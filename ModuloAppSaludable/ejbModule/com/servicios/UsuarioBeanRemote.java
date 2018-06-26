@@ -10,7 +10,7 @@ import com.entidades.Usuario;
 @Remote
 public interface UsuarioBeanRemote {
 
-	Long loginUsuario(String username, String contrasena);
+	Usuario loginUsuario(String username, String contrasena);
 	boolean existeCi(String ci);
 	boolean existeUsername(String username);
 	boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, Date fecha,

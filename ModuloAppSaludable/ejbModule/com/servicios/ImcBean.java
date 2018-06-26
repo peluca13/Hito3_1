@@ -1,12 +1,14 @@
 package com.servicios;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 
 import com.daos.ImcDAO;
 import com.entidades.Imc;
+import com.entidades.Usuario;
 
 
 /**
@@ -16,6 +18,8 @@ import com.entidades.Imc;
 public class ImcBean implements ImcBeanRemote {
 	@EJB
 	private ImcDAO imcDao;
+	@EJB
+	private static UsuarioBeanRemote usuRemote;
 	
 
     /**
@@ -26,7 +30,7 @@ public class ImcBean implements ImcBeanRemote {
     }
     
     //Controlar peso fecha
-
+    @Override
     public boolean validarPesoFecha(Long id, java.util.Date fecha) {
     	boolean existe;
     	Imc imc = null;
@@ -46,28 +50,21 @@ public class ImcBean implements ImcBeanRemote {
     	
     	return existe;
     }
-/*
+
     //Ingresar IMC
-    
-    public static boolean ingresarIMC(int identificador, double altura, double peso, java.util.Date fecha) {
+    @Override
+    public boolean ingresarIMC(Long identificador, double altura, double peso, java.util.Date fecha) {
     	boolean imcOk;
-    	int valorIMC=0;
-    	Usuario usuario=ObtenerUsuario(identificador);
-    	Imc imc = new Imc(1,fecha,altura,peso,usuario);
-    	
-    	try{
-    		ImcDAO.insert(imc);
-    		imcOk = true;
-    	}
-    	catch (SQLException e){
-    		e.printStackTrace();
-    		// ca va el codigo se falla el insert
-    		imcOk = false;
-    	}
+    	Usuario usuario=usuRemote.ObtenerUsuario(identificador);
+    	Imc imc = new Imc(fecha,altura,peso);
+    	List<Imc> imcUsuario=usuario.getImcs();
+    	imcUsuario.add(imc);
+    	usuario.setImcs(imcUsuario);
+    	imcOk=usuRemote.ActualizarUsuario(usuario);
     	
     	return imcOk;
     }
-  */  
+   
     
 
 }

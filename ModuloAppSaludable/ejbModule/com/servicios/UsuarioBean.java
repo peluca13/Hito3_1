@@ -48,7 +48,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     
     //Manejador session por ROL
     @Override 
-	public Long loginUsuario(String username, String contrasena){
+	public Usuario loginUsuario(String username, String contrasena){
     	
 		Usuario usuario = null;
 		try {
@@ -57,7 +57,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return usuario.getIdUsuario();
+		return usuario;
 	}
     
     
