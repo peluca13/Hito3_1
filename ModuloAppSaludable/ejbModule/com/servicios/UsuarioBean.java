@@ -12,6 +12,7 @@ import com.daos.RolDAO;
 import com.daos.TipoDietaDAO;
 import com.daos.TipoPublicoDAO;
 import com.daos.UsuarioDAO;
+import com.entidades.Genero;
 import com.entidades.Imc;
 import com.entidades.Rol;
 import com.entidades.TipoDieta;
@@ -38,6 +39,12 @@ public class UsuarioBean implements UsuarioBeanRemote {
 	
 	@EJB
     private UsuarioDAO userDao;
+	
+	@EJB
+	private TipoDietaBean tipoDieta;
+	
+	@EJB
+	private TipoPublicoBean tipoPublico;
 
 	/**
      * Default constructor. 
@@ -108,19 +115,20 @@ public class UsuarioBean implements UsuarioBeanRemote {
     	return existe;
     	
     } 
-  /*
+  
   //Alta Usuario
 	
     @Override
     public boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass,Long userrol){
     	
     	boolean pudeCrear;
-    	int idUser=1;
-    	TipoDieta tiporeceta=TipoDieta.TODOS;
-    	TipoPublico tipopublico=TipoPublico.TODOS;
+    	TipoDieta tiporeceta=tipoDieta.obtenerId((long) 1);
+    	TipoPublico tipopublico=tipoPublico.obtenerId((long) 1);
     	Rol rol = null;
-    	rol=this.rolDAO.obtenerRolId(userrol);
-    	Usuario user = new Usuario(idUser,doc,nombre,apellido,fecha,genero,correo,tipopublico,tiporeceta,rol,pass,usuario);
+    	rol=rolDao.obtenerRolId(userrol);
+    	Genero gen;
+    	if(genero==1) {gen=Genero.FEMENINO;}else {gen=Genero.MASCULINO;}
+    	Usuario user = new Usuario(doc, nombre, apellido, fecha, gen, correo, tipopublico, tiporeceta, rol, pass, usuario, null);
     	
     	try{
     		userDao.insert(user);
@@ -135,7 +143,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     	return pudeCrear;
     	
     }
-*/    
+    
   //Baja Usuario
     
     @Override
@@ -221,14 +229,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
 
     }
 
-	@Override
-	public boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo,
-			Date fecha, String usuario, String pass, Long userrol) {
-		// TODO Auto-generated method stub
-		return false;
-	}
     
-    
-    
+       
 
 }
