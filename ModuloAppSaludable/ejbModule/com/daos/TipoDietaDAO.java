@@ -54,7 +54,7 @@ public class TipoDietaDAO {
     
     //Obtener todos los TipoDieta.
     public List<TipoDieta> obtenerTodasDietas(){
-    	TypedQuery<TipoDieta> query = this.em.createQuery("SELECT d FROM DIETA d", TipoDieta.class);
+    	TypedQuery<TipoDieta> query = this.em.createQuery("SELECT d FROM TipoDieta d", TipoDieta.class);
 		return query.getResultList();
     }
 }

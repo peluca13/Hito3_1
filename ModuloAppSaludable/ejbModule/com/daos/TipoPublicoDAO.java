@@ -53,7 +53,7 @@ public class TipoPublicoDAO {
     
     //Obtener todos los TipoPublico.
     public List<TipoPublico> obtenerTodosPublicos(){
-    	TypedQuery<TipoPublico> query = this.em.createQuery("SELECT p FROM PUBLICO p", TipoPublico.class);
+    	TypedQuery<TipoPublico> query = this.em.createQuery("SELECT p FROM TipoPublico p", TipoPublico.class);
 		return query.getResultList();
     }
 
