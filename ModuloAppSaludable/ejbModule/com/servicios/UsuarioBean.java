@@ -2,18 +2,13 @@ package com.servicios;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
-import javax.persistence.PersistenceContext;
-
 import com.daos.RolDAO;
 import com.daos.TipoDietaDAO;
 import com.daos.TipoPublicoDAO;
 import com.daos.UsuarioDAO;
 import com.entidades.Genero;
-import com.entidades.Imc;
 import com.entidades.Rol;
 import com.entidades.TipoDieta;
 import com.entidades.TipoPublico;
@@ -57,14 +52,20 @@ public class UsuarioBean implements UsuarioBeanRemote {
     @Override 
 	public Usuario loginUsuario(String username, String contrasena){
     	
-		Usuario usuario = null;
+		ArrayList<Usuario> usuario = null;
+		Usuario user=null;
 		try {
-			usuario = this.userDao.login(username, contrasena);
+			usuario = userDao.login(username, contrasena);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return usuario;
+		if(usuario.isEmpty()) {System.out.println("ESTO ESTA VACIO");}
+		for(Usuario u : usuario) {
+			System.out.println(u.getApellido());
+		}
+		
+		return user;
 	}
     
     
@@ -75,7 +76,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     		boolean existe;
     		Usuario usuario = null;
 			try {
-				usuario = this.userDao.findByDoc(ci);
+				usuario =userDao.findByDoc(ci);
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

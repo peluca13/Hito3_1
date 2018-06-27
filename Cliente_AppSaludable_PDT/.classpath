@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/jdatepicker-1.3.2.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/ModuloAppSaludable"/>
+	<classpathentry kind="lib" path="C:/Users/m_riv/Desktop/wildfly-12.0.0.Final/bin/client/jboss-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

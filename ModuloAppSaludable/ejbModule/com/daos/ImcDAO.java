@@ -3,8 +3,6 @@ package com.daos;
 import java.sql.SQLException;
 
 import com.entidades.Imc;
-import com.entidades.Usuario;
-
 import java.util.Date;
 import java.util.LinkedList;
 import java.text.SimpleDateFormat;
@@ -26,8 +24,7 @@ public class ImcDAO {
 	public Imc findId(Long idUsuario, Date fecha) throws SQLException{
 		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 		DATE_FORMAT.format(fecha);
-		Imc imc = null;
-		return imc = (Imc) em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :idUsuario AND i.fecha LIKE :fecha")
+		return (Imc) em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :idUsuario AND i.fecha LIKE :fecha")
 				.setParameter("idUsuario", idUsuario)
 				.setParameter("fecha", new java.sql.Date(fecha.getTime()))
 				.getResultList();

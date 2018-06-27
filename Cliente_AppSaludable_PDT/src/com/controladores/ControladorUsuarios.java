@@ -29,9 +29,10 @@ public class ControladorUsuarios {
 	
 	public static boolean loginUsuario(String username, String contrasena){
 		boolean validar = false;
-		try {
-			usuarioRemote=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
-			Usuario usuario=usuarioRemote.loginUsuario(username, contrasena);
+		try {			
+			UsuarioBeanRemote usuremo;
+			usuremo=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
+			Usuario usuario=usuremo.loginUsuario(username, contrasena);
 			if(usuario==null) {
 				validar=false;
 			}else {	

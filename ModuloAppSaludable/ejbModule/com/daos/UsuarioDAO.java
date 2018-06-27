@@ -2,10 +2,6 @@ package com.daos;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -25,12 +21,13 @@ public class UsuarioDAO {
 	
   
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
-	public Usuario login(String nomUsuario,String contrasena) throws SQLException{
-			Usuario usuario = null;
-  			return usuario = (Usuario) em.createQuery("SELECT u FROM USUARIO u WHERE u.NOM_USUARIO LIKE :nomUsuario AND u.CONTRASENA LIKE :contrasena")
-  					.setParameter("nomUsuario", nomUsuario)
-  					.setParameter("contrasena",contrasena)
-  					.getResultList();
+	public ArrayList<Usuario> login(String nomUsuario,String contrasena) throws SQLException{
+		System.out.println("EL NOMBRE ES "+nomUsuario);
+		System.out.println("EL NOMBRE ES "+contrasena);
+		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomUsuario AND u.contrasena LIKE :contrasena",Usuario.class)
+   					.setParameter("nomUsuario", nomUsuario)
+   					.setParameter("contrasena",contrasena);
+   					return (ArrayList<Usuario>) query.getResultList();
 	}
   	
   	//Insertar Usuario pasado por parámetro (Administrador).
@@ -56,8 +53,6 @@ public class UsuarioDAO {
   	
   	//Obtener todos los Usuarios por apellido o nombreUsuario (Administrador).
   	public ArrayList<Usuario> findAll(String apellido,String nomUsuario) throws SQLException{
-  		ArrayList<Usuario> usuarios = new ArrayList<>();
-  		
   		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM USUARIO u WHERE u.APELLIDO LIKE :apellido OR u.NOM_USUARIO WHERE LIKE :nomUsuario",Usuario.class)
 				.setParameter("apellido", apellido)
 				.setParameter("nomUsuario", nomUsuario);

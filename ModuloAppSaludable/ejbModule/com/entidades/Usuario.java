@@ -60,7 +60,7 @@ public class Usuario implements Serializable{
 	private TipoDieta tipoDieta;
 	
 	@OneToMany(cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
-	@JoinColumn(name="ID_USUARIO",nullable=false)
+	@JoinColumn(name="ID_USUARIO")
 	private List<Imc> imcs;
 	
 	
