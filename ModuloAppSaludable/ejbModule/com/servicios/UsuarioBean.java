@@ -60,11 +60,10 @@ public class UsuarioBean implements UsuarioBeanRemote {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(usuario.isEmpty()) {System.out.println("ESTO ESTA VACIO");}
 		for(Usuario u : usuario) {
-			System.out.println(u.getApellido());
+			user=u;
 		}
-		
+
 		return user;
 	}
     

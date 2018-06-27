@@ -39,6 +39,7 @@ public class ControladorUsuarios {
 				validar=true;
 				VentanaPrincipal ventana= VentanaPrincipal.getFrame();
 				ventana.setVisible(true);
+				System.out.println("EL ROL DEL USUARIO ES: "+usuario.getRol().getNombre());
 				ventana.menuRol(usuario.getRol().getNombre(),usuario);			
 				}
 			

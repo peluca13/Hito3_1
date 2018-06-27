@@ -177,13 +177,13 @@ public class VentanaPrincipal extends JFrame {
 		
 	}
 	public void menuRol(String rol,Usuario usuario) {
-		if(rol.equals("Administrador")) {
+		if(rol.equals("ADMINISTRADOR")) {
 			mnAbm.setVisible(true);
 		}
-		if(rol.equals("Usuario")) {
+		if(rol.equals("USUARIO")) {
 			mnMenuUsuario.setVisible(true);
 		}
-		if(rol.equals("Personal Institución")) {
+		if(rol.equals("PERSONAL_INSTITUCION")) {
 			mnAlturaPeso.setVisible(true);
 			
 		}

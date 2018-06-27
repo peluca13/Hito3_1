@@ -21,12 +21,12 @@ public class UsuarioDAO {
 	
   
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
-	public ArrayList<Usuario> login(String nomUsuario,String contrasena) throws SQLException{
+	public ArrayList<Usuario> login(String nomUsuario,String pass) throws SQLException{
 		System.out.println("EL NOMBRE ES "+nomUsuario);
-		System.out.println("EL NOMBRE ES "+contrasena);
-		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomUsuario AND u.contrasena LIKE :contrasena",Usuario.class)
-   					.setParameter("nomUsuario", nomUsuario)
-   					.setParameter("contrasena",contrasena);
+		System.out.println("EL NOMBRE ES "+pass);
+		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomU AND u.contrasena LIKE :password",Usuario.class)
+   					.setParameter("nomU", nomUsuario)
+   					.setParameter("password",pass);
    					return (ArrayList<Usuario>) query.getResultList();
 	}
   	
