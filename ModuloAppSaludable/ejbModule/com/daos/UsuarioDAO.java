@@ -22,8 +22,6 @@ public class UsuarioDAO {
   
 	//Obtener un Usuario por Nombre Usuario y Contraseña para LOGIN.
 	public ArrayList<Usuario> login(String nomUsuario,String pass) throws SQLException{
-		System.out.println("EL NOMBRE ES "+nomUsuario);
-		System.out.println("EL NOMBRE ES "+pass);
 		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomU AND u.contrasena LIKE :password",Usuario.class)
    					.setParameter("nomU", nomUsuario)
    					.setParameter("password",pass);
@@ -53,7 +51,7 @@ public class UsuarioDAO {
   	
   	//Obtener todos los Usuarios por apellido o nombreUsuario (Administrador).
   	public ArrayList<Usuario> findAll(String apellido,String nomUsuario) throws SQLException{
-  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM USUARIO u WHERE u.APELLIDO LIKE :apellido OR u.NOM_USUARIO WHERE LIKE :nomUsuario",Usuario.class)
+  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.apellido LIKE :apellido OR u.nomUsuario WHERE LIKE :nomUsuario",Usuario.class)
 				.setParameter("apellido", apellido)
 				.setParameter("nomUsuario", nomUsuario);
   			return (ArrayList<Usuario>) query.getResultList();
@@ -71,16 +69,16 @@ public class UsuarioDAO {
   	}
   	
   	//Obtener un Usuario por username.
-  	public Usuario findByUser(String username) throws SQLException{
-  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.NOM_USUARIO LIKE :nomUsuario",Usuario.class)
+  	public ArrayList<Usuario> findByUser(String username) throws SQLException{
+  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.nomUsuario LIKE :nomUsuario",Usuario.class)
   				.setParameter("nomUsuario", username);
-  		return (Usuario) query.getResultList();
+  		return (ArrayList<Usuario>) query.getResultList();
   		}
   		
   	//Obtener un Usuario por documento.
-  	public Usuario findByDoc(String documentoUsuario) throws SQLException{
-  		TypedQuery<Usuario> query = em.createQuery("SELECT u FROM USUARIO u WHERE u.DOCUMENTO LIKE :documento",Usuario.class)
-				.setParameter("documento", documentoUsuario);
-		return (Usuario) query.getResultList();
+  	public ArrayList<Usuario> findByDoc(String documentoUsuario) throws SQLException{
+		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.documento LIKE :doc",Usuario.class)
+					.setParameter("doc", documentoUsuario);
+					return (ArrayList<Usuario>) query.getResultList();
   	}
 }

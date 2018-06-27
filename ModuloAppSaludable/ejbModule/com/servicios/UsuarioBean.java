@@ -72,8 +72,9 @@ public class UsuarioBean implements UsuarioBeanRemote {
     @Override
     public boolean existeCi(String ci){
     		
-    		boolean existe;
+    		boolean existe = false;
     		Usuario usuario = null;
+    		/*
 			try {
 				usuario =userDao.findByDoc(ci);
 			} catch (SQLException e) {
@@ -87,7 +88,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     		else{
     			existe = true;
     		}
-    		
+    		*/
     		return existe;
     		
     	}
@@ -96,8 +97,9 @@ public class UsuarioBean implements UsuarioBeanRemote {
     @Override
     public boolean existeUsername(String username){
     	
-    	boolean existe;
+    	boolean existe = false;
     	Usuario usuario = null;
+    	/*
 		try {
 			usuario = this.userDao.findByUser(username);
 		} catch (SQLException e) {
@@ -111,7 +113,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     	else{
     		existe = true;
     	}
-    	
+    	*/
     	return existe;
     	
     } 
@@ -214,7 +216,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
    //Actualizar Usuario
     @Override
     public boolean ActualizarUsuario(Usuario User) {
-    	boolean update;
+    	boolean update;    	
     	try{
     		userDao.edit(User);
     		update = true;

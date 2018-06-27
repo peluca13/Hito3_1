@@ -30,9 +30,9 @@ public class ControladorUsuarios {
 	public static boolean loginUsuario(String username, String contrasena){
 		boolean validar = false;
 		try {			
-			UsuarioBeanRemote usuremo;
-			usuremo=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
-			Usuario usuario=usuremo.loginUsuario(username, contrasena);
+			
+			usuarioRemote=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
+			Usuario usuario=usuarioRemote.loginUsuario(username, contrasena);
 			if(usuario==null) {
 				validar=false;
 			}else {	
@@ -184,6 +184,8 @@ public static boolean ingresarIMC(Long identificador, double altura, double peso
 	return imcOk;
 }
 
+
+//Actualizar Usuario
 public static boolean ActualizarUsuario(Usuario User) {
 	boolean update;
 	try {

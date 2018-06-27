@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.controladores.ControladorUsuarios;
+import com.entidades.Genero;
 import com.entidades.Usuario;
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
@@ -238,9 +239,9 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			String fieldApellido = this.txtApellido.getText();
 			Date fecha = (Date) this.datePicker.getModel().getValue();
 			String fieldDoc = this.txtDoc.getText();
-			int fieldGenero = 0;
-			if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=1;
-			if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=2;
+			Genero fieldGenero = null;
+			if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=Genero.MASCULINO;
+			if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=Genero.FEMENINO;
 			String fieldCorreo= this.txtCorreo.getText();
 			String fieldPass=this.txtPass.getText();
 			
@@ -302,13 +303,23 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			
 
 			// Almacenamos Usuario
-/*
-			Usuario usermod=new Usuario(user.getIdUsuario(),fieldDoc,fieldNombre,fieldApellido,fecha,fieldGenero,fieldCorreo,user.getTipoPublico(),user.getTipoDieta(),user.getRol(),fieldPass,user.getNomUsuario());
-			boolean almacenado = ControladorUsuarios.ActualizarUsuario(usermod);
+
+			//Usuario usermod=new Usuario(user.getIdUsuario(),fieldDoc,fieldNombre,fieldApellido,fecha,fieldGenero,fieldCorreo,user.getTipoPublico(),user.getTipoDieta(),user.getRol(),fieldPass,user.getNomUsuario());
+			
+			user.setDocumento(fieldDoc);
+			user.setNombre(fieldNombre);
+			user.setApellido(fieldApellido);
+			user.setFecNac(fecha);
+			user.setGenero(fieldGenero);
+			user.setCorreoElec(fieldCorreo);
+			user.setContrasena(fieldPass);
+			//Usuario usermod=new Usuario(fieldDoc,fieldNombre,fieldApellido,fecha,fieldGenero,fieldCorreo,user.getTipoPublico(),user.getTipoDieta(),user.getRol(),fieldPass,user.getNomUsuario(),user.getImcs());
+			
+			boolean almacenado = ControladorUsuarios.ActualizarUsuario(user);
 
 			if (almacenado) {
 				JOptionPane.showMessageDialog(frame, "El Usuario se ha actualizado con éxito.",
-						"Usuario Agregado!", JOptionPane.INFORMATION_MESSAGE);
+						"Usuario Actualizado!", JOptionPane.INFORMATION_MESSAGE);
 				
 				// cerramos la ventanta
 				dispose();
@@ -319,7 +330,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 				JOptionPane.showMessageDialog(frame, "Hubo un error al almacenar. Intente nuevamente más tarde",
 						"Error al registrar!", JOptionPane.ERROR_MESSAGE);
 			}
-*/
+
 		}
 	}
 
