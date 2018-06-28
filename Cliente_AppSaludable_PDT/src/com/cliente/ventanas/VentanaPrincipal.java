@@ -139,7 +139,7 @@ public class VentanaPrincipal extends JFrame {
             @Override
             public void actionPerformed(ActionEvent event) {
                 
-            	new IngresoPesoAltura(user.getIdUsuario());
+            	new IngresoPesoAltura(user);
             	
             }
         });

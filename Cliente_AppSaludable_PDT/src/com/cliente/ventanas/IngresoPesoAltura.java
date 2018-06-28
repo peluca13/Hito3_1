@@ -8,6 +8,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.controladores.ControladorUsuarios;
+import com.entidades.Usuario;
+
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -28,15 +30,14 @@ public class IngresoPesoAltura {
 	/**
 	 * Create the application.
 	 */
-	public IngresoPesoAltura(Long identificador) {
-		initialize(identificador);
-		System.out.println(identificador);
+	public IngresoPesoAltura(Usuario usuario) {
+		initialize(usuario);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize(Long id) {
+	private void initialize(Usuario usuario) {
 		frmIngresoDePeso = new JFrame();
 		frmIngresoDePeso.setTitle("Ingreso de Peso Altura para Usuario");
 		frmIngresoDePeso.setBounds(100, 100, 450, 300);
@@ -78,7 +79,7 @@ public class IngresoPesoAltura {
 		JButton btnGuardar = new JButton("Guardar");
 		btnGuardar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				ingresoDatos((long) id);
+				ingresoDatos(usuario);
 			}
 		});
 		btnGuardar.setBounds(48, 207, 89, 23);
@@ -104,7 +105,7 @@ public class IngresoPesoAltura {
 		return datePicker;
 	}
 	
-	protected void ingresoDatos(Long identificador){
+	protected void ingresoDatos(Usuario user){
 		double altura=0;
 		double peso=0;
 		altura=Double.parseDouble(this.textFieldAltura.getText());
@@ -119,12 +120,12 @@ public class IngresoPesoAltura {
 				}
 		
 		//Validar que no exista dato para esa fecha
-				if(ControladorUsuarios.validarPesoFecha(identificador,fecha)) {
+				if(ControladorUsuarios.validarPesoFecha(user.getIdUsuario(),fecha)) {
 					JOptionPane.showMessageDialog(frmIngresoDePeso, "Ya se encuentra un ingreso para esa fecha", "Fecha existente",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}else {
-					if(ControladorUsuarios.ingresarIMC(identificador,altura,peso, fecha)) {
+					if(ControladorUsuarios.ingresarIMC(user,altura,peso, fecha)) {
 						JOptionPane.showMessageDialog(frmIngresoDePeso, "Se ingreso IMC correctamente", "Ingreso correcto",
 								JOptionPane.WARNING_MESSAGE);
 						return;

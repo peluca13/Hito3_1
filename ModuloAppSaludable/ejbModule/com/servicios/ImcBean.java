@@ -53,14 +53,13 @@ public class ImcBean implements ImcBeanRemote {
 
     //Ingresar IMC
     @Override
-    public boolean ingresarIMC(Long identificador, double altura, double peso, java.util.Date fecha) {
+    public boolean ingresarIMC(Usuario user, double altura, double peso, java.util.Date fecha) {
     	boolean imcOk;
-    	Usuario usuario=usuRemote.ObtenerUsuario(identificador);
     	Imc imc = new Imc(fecha,altura,peso);
-    	List<Imc> imcUsuario=usuario.getImcs();
+    	List<Imc> imcUsuario=user.getImcs();
     	imcUsuario.add(imc);
-    	usuario.setImcs(imcUsuario);
-    	imcOk=usuRemote.ActualizarUsuario(usuario);
+    	user.setImcs(imcUsuario);
+    	imcOk=usuRemote.ActualizarUsuario(user);
     	
     	return imcOk;
     }

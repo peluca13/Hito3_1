@@ -171,7 +171,7 @@ public class InPesoAlturaPer implements ActionListener {
 	}
 	
 	public void ingresoPesoAltura(Long id) {
-		new IngresoPesoAltura(id);
+		//new IngresoPesoAltura(user);
 		
 	}
 		

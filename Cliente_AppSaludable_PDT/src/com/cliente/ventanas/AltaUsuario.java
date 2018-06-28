@@ -3,11 +3,16 @@ package com.cliente.ventanas;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
 import com.controladores.ControladorUsuarios;
+import com.entidades.Genero;
+import com.entidades.Rol;
+import com.entidades.Usuario;
+
 import net.sourceforge.jdatepicker.impl.JDatePanelImpl;
 import net.sourceforge.jdatepicker.impl.JDatePickerImpl;
 import net.sourceforge.jdatepicker.impl.UtilDateModel;
@@ -188,8 +193,12 @@ public class AltaUsuario implements ActionListener{
 		comboBoxRol = new JComboBox();
 		comboBoxRol.setBounds(135, 298, 130, 20);
 		panel.add(comboBoxRol);
-		comboBoxRol.addItem("Usuario normal");
-		comboBoxRol.addItem("Personal Institucion");
+		List<Rol> roles;
+		roles=cargarComboRoles();
+		for(Rol r:roles) {
+			comboBoxRol.addItem(r);
+			
+		}
 		
 
 		
@@ -198,6 +207,13 @@ public class AltaUsuario implements ActionListener{
 		frame_1.getContentPane().add(lblNewLabel);
 		lblNewLabel.setForeground(new Color(0, 51, 153));
 
+	}
+
+	private List<Rol> cargarComboRoles() {
+		// TODO Auto-generated method stub
+		List<Rol> rol;
+		rol=ControladorUsuarios.obtenerRoles();
+		return rol;
 	}
 
 	@Override
@@ -233,15 +249,14 @@ public class AltaUsuario implements ActionListener{
 		String fieldApellido = this.textFieldApellido.getText();
 		Date fecha = (Date) this.datePicker.getModel().getValue();
 		String fieldDoc = this.textFieldDoc.getText();
-		int fieldGenero = 0;
-		if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=1;
-		if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=2;
+		Genero fieldGenero = null;
+		if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=Genero.MASCULINO;
+		if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=Genero.FEMENINO;
 		String fieldCorreo= this.textFieldCorreo.getText();
 		String fieldUsuario=this.textFieldUsuario.getText();
 		String fieldPass=this.textFieldPass.getText();
-		Long fieldRol = null;
-		if(comboBoxRol.getSelectedItem().equals("Usuario normal"))fieldRol=(long) 1;
-		if(comboBoxRol.getSelectedItem().equals("Personal Institucion"))fieldRol=(long) 2;
+		Rol fieldRol = (Rol) comboBoxRol.getSelectedItem();
+		
 		
 
 		// check obligatorios
@@ -305,7 +320,8 @@ public class AltaUsuario implements ActionListener{
 		
 
 		// Almacenamos Usuario
-		boolean almacenado = ControladorUsuarios.ingresarNuevoUsuario(fieldNombre, fieldApellido, fieldDoc,fieldGenero,fieldCorreo,fecha,fieldUsuario,fieldPass,fieldRol);
+		Usuario nuevoUsuario=new Usuario(fieldDoc, fieldNombre, fieldApellido, fecha, fieldGenero, fieldCorreo, null, null, fieldRol, fieldPass, fieldUsuario, null);
+		boolean almacenado = ControladorUsuarios.ingresarNuevoUsuario(nuevoUsuario);
 
 		if (almacenado) {
 			JOptionPane.showMessageDialog(frame, "El Usuario se ha creado con éxito.",

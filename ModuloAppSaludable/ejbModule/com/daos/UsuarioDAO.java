@@ -51,7 +51,7 @@ public class UsuarioDAO {
   	
   	//Obtener todos los Usuarios por apellido o nombreUsuario (Administrador).
   	public ArrayList<Usuario> findAll(String apellido,String nomUsuario) throws SQLException{
-  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.apellido LIKE :apellido OR u.nomUsuario WHERE LIKE :nomUsuario",Usuario.class)
+  		TypedQuery<Usuario> query = this.em.createQuery("SELECT u FROM Usuario u WHERE u.apellido LIKE :apellido OR u.nomUsuario LIKE :nomUsuario",Usuario.class)
 				.setParameter("apellido", apellido)
 				.setParameter("nomUsuario", nomUsuario);
   			return (ArrayList<Usuario>) query.getResultList();

@@ -85,12 +85,12 @@ public static boolean existeUsername(String username){
 //Alta Usuario
 	
 
-public static boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass,Long userrol){
+public static boolean ingresarNuevoUsuario(Usuario user){
 	
-	boolean crear = true;
+	boolean crear = false;
 	try {
 		usuarioRemote=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
-		crear=usuarioRemote.ingresarNuevoUsuario(nombre, apellido, doc, genero, correo, fecha, usuario, pass, userrol);		
+		crear=usuarioRemote.ingresarNuevoUsuario(user);		
 	} catch (NamingException e) {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
@@ -172,7 +172,9 @@ public static ArrayList<Usuario> obtenerInfoUsuarios(String apellido, String use
 	return infoUsuarios;
 }
 
-public static boolean ingresarIMC(Long identificador, double altura, double peso, java.util.Date fecha) {
+
+//Ingresar IMC
+public static boolean ingresarIMC(Usuario user, double altura, double peso, java.util.Date fecha) {
 	boolean imcOk;
 	try {
 		imcRemote=EJBLocator.getInstance().lookup(ImcBeanRemote.class);
@@ -180,7 +182,7 @@ public static boolean ingresarIMC(Long identificador, double altura, double peso
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	imcOk=imcRemote.ingresarIMC(identificador, altura, peso, fecha);
+	imcOk=imcRemote.ingresarIMC(user, altura, peso, fecha);
 	return imcOk;
 }
 
@@ -198,6 +200,19 @@ public static boolean ActualizarUsuario(Usuario User) {
 	
 	return update;
 
+}
+
+//Obtener Roles
+public static List<Rol> obtenerRoles(){
+	List<Rol> roles;
+	try {
+		usuarioRemote=EJBLocator.getInstance().lookup(UsuarioBeanRemote.class);
+	} catch (NamingException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	roles=usuarioRemote.verRoles();
+	return roles;
 }
 
 

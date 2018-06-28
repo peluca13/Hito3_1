@@ -2,6 +2,8 @@ package com.servicios;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import com.daos.RolDAO;
@@ -73,8 +75,8 @@ public class UsuarioBean implements UsuarioBeanRemote {
     public boolean existeCi(String ci){
     		
     		boolean existe = false;
-    		Usuario usuario = null;
-    		/*
+    		ArrayList<Usuario> usuario = null;
+    		
 			try {
 				usuario =userDao.findByDoc(ci);
 			} catch (SQLException e) {
@@ -82,13 +84,13 @@ public class UsuarioBean implements UsuarioBeanRemote {
 				e.printStackTrace();
 			}
     		
-    		if (usuario==null){
+    		if (usuario.isEmpty()){
     			existe = false;
     		}
     		else{
     			existe = true;
     		}
-    		*/
+    		
     		return existe;
     		
     	}
@@ -98,8 +100,7 @@ public class UsuarioBean implements UsuarioBeanRemote {
     public boolean existeUsername(String username){
     	
     	boolean existe = false;
-    	Usuario usuario = null;
-    	/*
+    	ArrayList<Usuario> usuario = null;
 		try {
 			usuario = this.userDao.findByUser(username);
 		} catch (SQLException e) {
@@ -107,13 +108,12 @@ public class UsuarioBean implements UsuarioBeanRemote {
 			e.printStackTrace();
 		}
     	
-    	if (usuario==null){
+    	if (usuario.isEmpty()){
     		existe = false;
     	}
     	else{
     		existe = true;
     	}
-    	*/
     	return existe;
     	
     } 
@@ -121,19 +121,16 @@ public class UsuarioBean implements UsuarioBeanRemote {
   //Alta Usuario
 	
     @Override
-    public boolean ingresarNuevoUsuario(String nombre, String apellido, String doc, int genero, String correo, java.util.Date fecha,String usuario, String pass,Long userrol){
+    public boolean ingresarNuevoUsuario(Usuario usuario){
     	
     	boolean pudeCrear;
     	TipoDieta tiporeceta=tipoDieta.obtenerId((long) 1);
     	TipoPublico tipopublico=tipoPublico.obtenerId((long) 1);
-    	Rol rol = null;
-    	rol=rolDao.obtenerRolId(userrol);
-    	Genero gen;
-    	if(genero==1) {gen=Genero.FEMENINO;}else {gen=Genero.MASCULINO;}
-    	Usuario user = new Usuario(doc, nombre, apellido, fecha, gen, correo, tipopublico, tiporeceta, rol, pass, usuario, null);
+    	usuario.setTipoDieta(tiporeceta);
+    	usuario.setTipoPublico(tipopublico);
     	
     	try{
-    		userDao.insert(user);
+    		userDao.insert(usuario);
     		pudeCrear = true;
     	}
     	catch (SQLException e){
@@ -231,7 +228,12 @@ public class UsuarioBean implements UsuarioBeanRemote {
 
     }
 
+    //Obtener todos los roles
     
+    @Override
+    public List<Rol> verRoles(){
+    	return rolDao.obtenerTodosRoles();    	 
+    }
        
 
 }

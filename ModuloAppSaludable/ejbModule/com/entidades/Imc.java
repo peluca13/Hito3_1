@@ -29,6 +29,8 @@ public class Imc implements Serializable{
 	@Column(name="PESO",nullable=false)
 	private double peso;
 	
+	
+	
 	//constructor por defecto.
 	public Imc() {
 		super();
