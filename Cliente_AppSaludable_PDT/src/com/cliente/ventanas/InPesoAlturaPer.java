@@ -27,7 +27,7 @@ public class InPesoAlturaPer implements ActionListener {
 	private int idUsuario=0;
 	private JTextField textFieldApellido;
 	private JTextField textFieldUsuario;
-
+	private Usuario user;
 
 
 	/**
@@ -103,7 +103,7 @@ public class InPesoAlturaPer implements ActionListener {
 		JButton btnIngPesoAltura = new JButton("Ingresar Peso/Altura");
 		btnIngPesoAltura.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ingresoPesoAltura((long) idUsuario);
+				ingresoPesoAltura(user);
 			}
 		});
 		btnIngPesoAltura.setBounds(47, 223, 178, 23);
@@ -114,7 +114,8 @@ public class InPesoAlturaPer implements ActionListener {
 			public void mouseClicked(MouseEvent arg0) {
 		        Point p = arg0.getPoint();
 		        int row = table.rowAtPoint(p);
-		        idUsuario = Integer.parseInt( table.getModel().getValueAt(row, 0).toString() ); 
+		        user =(Usuario) table.getModel().getValueAt(row, 1);
+		        		//Integer.parseInt( table.getModel().getValueAt(row, 0).toString() ); 
 		        }
 		});
 		
@@ -140,7 +141,7 @@ public class InPesoAlturaPer implements ActionListener {
         int fila = 0;
         for(Usuario u : usuarios){
         	datosTabla[fila][0] = u.getIdUsuario();
-        	datosTabla[fila][1] = u.getNombre();
+        	datosTabla[fila][1] = u;
         	datosTabla[fila][2] = u.getApellido();
         	datosTabla[fila][3] = u.getNomUsuario();
         	datosTabla[fila][4] = u.getDocumento();
@@ -170,8 +171,8 @@ public class InPesoAlturaPer implements ActionListener {
 
 	}
 	
-	public void ingresoPesoAltura(Long id) {
-		//new IngresoPesoAltura(user);
+	public void ingresoPesoAltura(Usuario user) {
+		new IngresoPesoAltura(user);
 		
 	}
 		

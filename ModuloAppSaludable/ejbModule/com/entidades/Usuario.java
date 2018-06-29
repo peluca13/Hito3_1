@@ -172,9 +172,7 @@ public class Usuario implements Serializable{
 	//to String
 	@Override
 	public String toString() {
-		return "Usuario [ID Usuario=" +idUsuario+", ci=" +documento+", nombre=" +nombre+", apellido=" +apellido+", "
-					+ "fechaNac=" +fecNac+", género=" +genero+", correo=" +correoElec+", tipoPublicos=" +tipoPublico+", "
-						+ "tipoDieta=" +tipoDieta+", rol=" +rol+", contrasena="	+contrasena+", username=" +nomUsuario+", imcs=" +imcs+"]";
+		return nombre;
 	}
 	
 }

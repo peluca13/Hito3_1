@@ -55,8 +55,7 @@ public class ImcBean implements ImcBeanRemote {
     	}
     	else{
     		existe = true;
-    	}
-    	
+    	}  	
     	return existe;
     }
 
