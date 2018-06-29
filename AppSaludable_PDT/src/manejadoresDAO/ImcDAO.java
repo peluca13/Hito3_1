@@ -22,8 +22,8 @@ public class ImcDAO {
 	
 	//Validar existe imc fecha
 	public static Imc findId(int id, Date fecha){
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		DATE_FORMAT.format(fecha);
+		//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		//DATE_FORMAT.format(fecha);
 		try{
 			PreparedStatement statement = DatabaseManager.getConnection().prepareStatement(IMC_ID);
 			statement.setInt(1, id);
