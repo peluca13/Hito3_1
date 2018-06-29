@@ -9,7 +9,7 @@ import com.entidades.Usuario;
 @Remote
 public interface ImcBeanRemote {
 
-	boolean validarPesoFecha(Long id, Date fecha);
+	boolean validarPesoFecha(Usuario usuario, Date fecha);
 
 	boolean ingresarIMC(Usuario user, double altura, double peso, Date fecha);
 

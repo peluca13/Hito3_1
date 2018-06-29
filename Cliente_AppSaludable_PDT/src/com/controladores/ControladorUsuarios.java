@@ -146,7 +146,7 @@ public static boolean cambiarPass(String password,Long id) {
 
 //Controlar peso fecha
 
-public static boolean validarPesoFecha(Long id, java.util.Date fecha) {
+public static boolean validarPesoFecha(Usuario id, java.util.Date fecha) {
 	boolean existe;
 	try {
 		imcRemote=EJBLocator.getInstance().lookup(ImcBeanRemote.class);

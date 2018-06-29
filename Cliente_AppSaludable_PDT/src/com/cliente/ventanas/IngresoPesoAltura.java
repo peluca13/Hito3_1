@@ -120,7 +120,7 @@ public class IngresoPesoAltura {
 				}
 		
 		//Validar que no exista dato para esa fecha
-				if(ControladorUsuarios.validarPesoFecha(user.getIdUsuario(),fecha)) {
+				if(ControladorUsuarios.validarPesoFecha(user,fecha)) {
 					JOptionPane.showMessageDialog(frmIngresoDePeso, "Ya se encuentra un ingreso para esa fecha", "Fecha existente",
 							JOptionPane.WARNING_MESSAGE);
 					return;

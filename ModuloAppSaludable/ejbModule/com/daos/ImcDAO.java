@@ -3,6 +3,10 @@ package com.daos;
 import java.sql.SQLException;
 
 import com.entidades.Imc;
+import com.entidades.Usuario;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.text.SimpleDateFormat;
@@ -21,20 +25,21 @@ public class ImcDAO {
 	private EntityManager em;
 	
 	//Validar existe imc fecha
-	public Imc findId(Long idUsuario, Date fecha) throws SQLException{
-		SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		DATE_FORMAT.format(fecha);
-		return (Imc) em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :idUsuario AND i.fecha LIKE :fecha")
-				.setParameter("idUsuario", idUsuario)
-				.setParameter("fecha", new java.sql.Date(fecha.getTime()))
-				.getResultList();
+	public ArrayList<Imc> findId(Usuario idUsuario, Date fecha) throws SQLException{
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(fecha);
+		
+		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :user AND i.fecha LIKE :date",Imc.class)
+					.setParameter("user", idUsuario)
+					.setParameter("date", new java.sql.Date(Calendar.DAY_OF_MONTH));
+					return (ArrayList<Imc>) query.getResultList();
+		
 		}
 		
 	//Insertar IMC pasado por parámetro.
-	public Long insert(Imc imc) throws SQLException {
+	public void insert(Imc imc) throws SQLException {
 		this.em.persist(imc);
 		this.em.flush();
-		return imc.getIdImc();
 	}
 	
 	//Actualizar IMC pasado por parámetro.

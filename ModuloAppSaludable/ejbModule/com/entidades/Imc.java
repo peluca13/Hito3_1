@@ -20,7 +20,7 @@ public class Imc implements Serializable{
 	@Column(name="ID_IMC")
 	private Long idImc;
 	
-	@Column(name="FECHA",nullable=false,unique=true)
+	@Column(name="FECHA",nullable=false,unique=true,columnDefinition = "DATE")
 	private Date fecha;
 	
 	@Column(name="ALTURA",nullable=false)
@@ -30,6 +30,11 @@ public class Imc implements Serializable{
 	private double peso;
 	
 	
+	@ManyToOne
+	@JoinColumn(name="ID_USUARIO")
+	private Usuario idUsuario;
+	
+	
 	
 	//constructor por defecto.
 	public Imc() {
@@ -37,11 +42,12 @@ public class Imc implements Serializable{
 	}
 	
 	//constructor
-	public Imc(Date fecha, double altura, double peso) {
+	public Imc(Date fecha, double altura, double peso,Usuario user) {
 		super();
 		this.fecha = fecha;
 		this.altura = altura;
 		this.peso = peso;
+		this.idUsuario=user;
 	}
 	
 	//getters and setters

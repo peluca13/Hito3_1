@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+import javax.persistence.criteria.Fetch;
 
 @Entity
 @Table(name="USUARIO")
@@ -59,8 +60,7 @@ public class Usuario implements Serializable{
 	@JoinColumn(name="TIPO_DIETA")
 	private TipoDieta tipoDieta;
 	
-	@OneToMany(cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
-	@JoinColumn(name="ID_USUARIO")
+	@OneToMany(mappedBy="idUsuario",fetch = FetchType.EAGER,cascade ={CascadeType.PERSIST,CascadeType.REMOVE})
 	private List<Imc> imcs;
 	
 	
