@@ -113,7 +113,7 @@ public class IngresoPesoAltura {
 		peso=Float.parseFloat(this.textFieldPeso.getText());
 		}
 		catch (NumberFormatException e){
-			JOptionPane.showMessageDialog(frmIngresoDePeso, "Debe ingresar un valor numerico", "Datos incompletos",
+			JOptionPane.showMessageDialog(frmIngresoDePeso, "Debe ingresar un valor numerico. Para decimal usar punto.", "Datos incompletos",
 					JOptionPane.WARNING_MESSAGE);
 			return;
 		}
