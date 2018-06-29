@@ -6,7 +6,7 @@ import java.util.Date;
 import javax.persistence.*;
 
 @Entity
-@Table(name="IMC")
+@Table(name="IMC",uniqueConstraints=@UniqueConstraint(columnNames= {"FECHA","ID_USUARIO"}))
 
 public class Imc implements Serializable{
 	/**
@@ -20,7 +20,7 @@ public class Imc implements Serializable{
 	@Column(name="ID_IMC")
 	private Long idImc;
 	
-	@Column(name="FECHA",nullable=false,unique=true,columnDefinition = "DATE")
+	@Column(name="FECHA",nullable=false,columnDefinition = "DATE")
 	private Date fecha;
 	
 	@Column(name="ALTURA",nullable=false)

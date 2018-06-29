@@ -35,10 +35,9 @@ public class ImcBean implements ImcBeanRemote {
     //Controlar peso fecha
     @Override
     public boolean validarPesoFecha(Usuario usuario, Date fecha) {
-    	boolean existe;
+    	boolean existe = false;
     	ArrayList<Imc> imc = null;
-    	//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		//DATE_FORMAT.format(fecha);
+    	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
 		try {
 			imc = imcDao.findId(usuario,fecha);
 		} catch (SQLException e) {
@@ -47,15 +46,13 @@ public class ImcBean implements ImcBeanRemote {
 		}
 		
 		for(Imc i:imc) {
-			System.out.println("EL IMC TIENE ESTOS DATOS GUARDADOS"+i.getFecha()+i.getAltura());
-		}
-    	
-    	if (imc.isEmpty()){
-    		existe = false;
-    	}
-    	else{
-    		existe = true;
-    	}  	
+			Date compara=i.getFecha();
+			String comp=DATE_FORMAT.format(compara);
+			String fec=DATE_FORMAT.format(fecha);
+			if(comp.equals(fec)) {
+				existe=true;
+			}
+		}  	
     	return existe;
     }
 
@@ -63,8 +60,8 @@ public class ImcBean implements ImcBeanRemote {
     @Override
     public boolean ingresarIMC(Usuario user, float altura, float peso, Date fecha) {
     	boolean imcOk = false;
-    	//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		//DATE_FORMAT.format(fecha);
+    	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		DATE_FORMAT.format(fecha);
     	Imc imc = new Imc(fecha,altura,peso,user);
     	try {
 			imcDao.insert(imc);

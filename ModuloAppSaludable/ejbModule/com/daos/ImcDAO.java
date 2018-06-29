@@ -26,10 +26,9 @@ public class ImcDAO {
 	
 	//Validar existe imc fecha
 	public ArrayList<Imc> findId(Usuario idUsuario, Date fecha) throws SQLException{
-		
-		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :user AND i.fecha LIKE :date",Imc.class)
-					.setParameter("user", idUsuario)
-					.setParameter("date", fecha);
+		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :user",Imc.class)
+					.setParameter("user", idUsuario);
+					//.setParameter("date", fecha);
 					return (ArrayList<Imc>) query.getResultList();
 		
 		}
