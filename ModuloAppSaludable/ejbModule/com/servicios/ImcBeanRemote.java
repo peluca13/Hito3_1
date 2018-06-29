@@ -11,6 +11,6 @@ public interface ImcBeanRemote {
 
 	boolean validarPesoFecha(Usuario usuario, Date fecha);
 
-	boolean ingresarIMC(Usuario user, double altura, double peso, Date fecha);
+	boolean ingresarIMC(Usuario user, float altura, float peso, Date fecha);
 
 }

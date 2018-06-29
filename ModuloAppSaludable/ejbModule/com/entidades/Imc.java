@@ -24,10 +24,10 @@ public class Imc implements Serializable{
 	private Date fecha;
 	
 	@Column(name="ALTURA",nullable=false)
-	private double altura;
+	private float altura;
 	
 	@Column(name="PESO",nullable=false)
-	private double peso;
+	private float peso;
 	
 	
 	@ManyToOne
@@ -42,7 +42,7 @@ public class Imc implements Serializable{
 	}
 	
 	//constructor
-	public Imc(Date fecha, double altura, double peso,Usuario user) {
+	public Imc(Date fecha, float altura, float peso,Usuario user) {
 		super();
 		this.fecha = fecha;
 		this.altura = altura;

@@ -31,14 +31,14 @@ public class ImcBean implements ImcBeanRemote {
     public ImcBean() {
         // TODO Auto-generated constructor stub
     }
-    
+    	
     //Controlar peso fecha
     @Override
     public boolean validarPesoFecha(Usuario usuario, Date fecha) {
     	boolean existe;
     	ArrayList<Imc> imc = null;
-    	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		DATE_FORMAT.format(fecha);
+    	//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		//DATE_FORMAT.format(fecha);
 		try {
 			imc = imcDao.findId(usuario,fecha);
 		} catch (SQLException e) {
@@ -62,10 +62,10 @@ public class ImcBean implements ImcBeanRemote {
 
     //Ingresar IMC
     @Override
-    public boolean ingresarIMC(Usuario user, double altura, double peso, Date fecha) {
+    public boolean ingresarIMC(Usuario user, float altura, float peso, Date fecha) {
     	boolean imcOk = false;
-    	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
-		DATE_FORMAT.format(fecha);
+    	//SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		//DATE_FORMAT.format(fecha);
     	Imc imc = new Imc(fecha,altura,peso,user);
     	try {
 			imcDao.insert(imc);

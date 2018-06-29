@@ -174,7 +174,7 @@ public static ArrayList<Usuario> obtenerInfoUsuarios(String apellido, String use
 
 
 //Ingresar IMC
-public static boolean ingresarIMC(Usuario user, double altura, double peso, java.util.Date fecha) {
+public static boolean ingresarIMC(Usuario user, float altura, float peso, java.util.Date fecha) {
 	boolean imcOk;
 	try {
 		imcRemote=EJBLocator.getInstance().lookup(ImcBeanRemote.class);

@@ -25,7 +25,8 @@ public class ImcDAO {
 	private EntityManager em;
 	
 	//Validar existe imc fecha
-	public ArrayList<Imc> findId(Usuario idUsuario, Date fecha) throws SQLException{		
+	public ArrayList<Imc> findId(Usuario idUsuario, Date fecha) throws SQLException{
+		
 		TypedQuery<Imc> query = this.em.createQuery("SELECT i FROM Imc i WHERE i.idUsuario LIKE :user AND i.fecha LIKE :date",Imc.class)
 					.setParameter("user", idUsuario)
 					.setParameter("date", fecha);

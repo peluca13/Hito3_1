@@ -106,10 +106,17 @@ public class IngresoPesoAltura {
 	}
 	
 	protected void ingresoDatos(Usuario user){
-		double altura=0;
-		double peso=0;
-		altura=Double.parseDouble(this.textFieldAltura.getText());
-		peso=Double.parseDouble(this.textFieldPeso.getText());
+		float altura=0;
+		float peso=0;
+		try {
+		altura=Float.parseFloat(this.textFieldAltura.getText());
+		peso=Float.parseFloat(this.textFieldPeso.getText());
+		}
+		catch (NumberFormatException e){
+			JOptionPane.showMessageDialog(frmIngresoDePeso, "Debe ingresar un valor numerico", "Datos incompletos",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+		}
 		Date fecha = (Date) this.datePicker.getModel().getValue();
 		
 		// check obligatorios
