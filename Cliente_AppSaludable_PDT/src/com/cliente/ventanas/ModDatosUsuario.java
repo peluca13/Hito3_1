@@ -258,18 +258,20 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			if(fecha==null) {fecha=user.getFecNac();}
 			
 	        		
-			// Valida que usuario no exista con mismo documento
-			if(fieldDoc!="") {
-			boolean existeCi = ControladorUsuarios.existeCi(fieldDoc);
-
-			if (existeCi) {
-				JOptionPane.showMessageDialog(frame, "El documento se encuentra ingresado para otro usuario.",
-						"Documento Existente.", JOptionPane.WARNING_MESSAGE);
-
-				return;
-			}
-			}
+			// Valida que usuario no exista con mismo documento. Deja ingresar si es igual doc o esta vacio
 			
+			
+			if(!user.getDocumento().equals(fieldDoc)) {
+				if(fieldDoc!="") {
+					boolean existeCi = ControladorUsuarios.existeCi(fieldDoc);
+
+					if (existeCi) {
+						JOptionPane.showMessageDialog(frame, "El documento se encuentra ingresado para otro usuario.",
+						"Documento Existente.", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+				}
+			}
 
 			//Largo caracteres		
 			if(fieldNombre.length()>=50) {
