@@ -64,6 +64,8 @@ public class ImcBean implements ImcBeanRemote {
     @Override
     public boolean ingresarIMC(Usuario user, double altura, double peso, Date fecha) {
     	boolean imcOk = false;
+    	SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("dd-MM-yyyy");
+		DATE_FORMAT.format(fecha);
     	Imc imc = new Imc(fecha,altura,peso,user);
     	try {
 			imcDao.insert(imc);
