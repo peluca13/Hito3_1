@@ -176,6 +176,12 @@ public class BajaUsuario implements ActionListener {
             
         //Se obtienen los usuarios para llenar la tabla
         ArrayList<Usuario> usuarios = ControladorUsuarios.obtenerInfoUsuarios(textFieldApellido.getText(),textFieldUsuario.getText());
+        if(usuarios.isEmpty()) {
+        	idUsuario=0;
+        	JOptionPane.showMessageDialog(frame, "El usuario solicitado, no fue encontrado en el sistema. Por favor realice nuevamente la búsqueda", "Buqueda",
+					JOptionPane.WARNING_MESSAGE);
+			return;
+        }
         /*Los datos de una tabla se pueden ver como una matriz o un doble array de objetos 
          * (ya que los campos son o numero o caraceres se especifica que el tipo de datos es un objeto genérico)*/
         Object[][] datosTabla = new Object[usuarios.size()][5];
