@@ -120,8 +120,8 @@ public class IngresoPesoAltura {
 		Date fecha = (Date) this.datePicker.getModel().getValue();
 		
 		// check obligatorios
-				if (altura==0|| peso==0 ||fecha==null) {
-					JOptionPane.showMessageDialog(frmIngresoDePeso, "Debe completar todos los datos", "Datos incompletos",
+				if (altura<=0|| peso<=0 ||fecha==null) {
+					JOptionPane.showMessageDialog(frmIngresoDePeso, "Debe completar todos los datos. Valores de entrada mayores a 0", "Datos incompletos",
 							JOptionPane.WARNING_MESSAGE);
 					return;
 				}
