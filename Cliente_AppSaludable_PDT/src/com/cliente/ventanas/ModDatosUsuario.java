@@ -161,8 +161,15 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		comboBoxGenero = new JComboBox();
 		comboBoxGenero.setBounds(150, 212, 91, 20);
 		contentPane.add(comboBoxGenero);
-		comboBoxGenero.addItem("masculino");
-		comboBoxGenero.addItem("femenino");
+		System.out.println(user.getGenero());
+		if(user.getGenero().equals("MASCULINO")) {
+			comboBoxGenero.addItem("masculino");
+			
+		}else {
+			comboBoxGenero.addItem("femenino");
+			comboBoxGenero.addItem("masculino");
+		}
+		
 		
 		txtCorreo = new JTextField();
 		txtCorreo.setBounds(150, 256, 193, 20);
@@ -262,7 +269,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			
 			
 			if(!user.getDocumento().equals(fieldDoc)) {
-				if(fieldDoc!="") {
+				if(fieldDoc!=" ") {
 					boolean existeCi = ControladorUsuarios.existeCi(fieldDoc);
 
 					if (existeCi) {
@@ -296,7 +303,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 						"Máximo caracteres excedido.", JOptionPane.WARNING_MESSAGE);
 				return;
 			}		
-			if(fieldPass.length()>=16 ||fieldPass.length()<=8) {
+			if(fieldPass.length()>16 ||fieldPass.length()<8) {
 				JOptionPane.showMessageDialog(frame, "El campo contraseña debe tener como minimo 8 caracteres y como máximo 16",
 						"Máximo caracteres excedido.", JOptionPane.WARNING_MESSAGE);
 				return;
@@ -307,7 +314,7 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 			// Almacenamos Usuario
 
 			//Usuario usermod=new Usuario(user.getIdUsuario(),fieldDoc,fieldNombre,fieldApellido,fecha,fieldGenero,fieldCorreo,user.getTipoPublico(),user.getTipoDieta(),user.getRol(),fieldPass,user.getNomUsuario());
-			
+			if(fieldDoc.isEmpty()) {fieldDoc=" ";}
 			user.setDocumento(fieldDoc);
 			user.setNombre(fieldNombre);
 			user.setApellido(fieldApellido);

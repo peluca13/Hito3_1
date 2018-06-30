@@ -193,6 +193,10 @@ public class AltaUsuario implements ActionListener{
 		comboBoxRol = new JComboBox();
 		comboBoxRol.setBounds(135, 298, 130, 20);
 		panel.add(comboBoxRol);
+		
+		JLabel label_2 = new JLabel("(*)");
+		label_2.setBounds(275, 127, 46, 14);
+		panel.add(label_2);
 		List<Rol> roles;
 		roles=cargarComboRoles();
 		for(Rol r:roles) {
@@ -249,6 +253,7 @@ public class AltaUsuario implements ActionListener{
 		String fieldApellido = this.textFieldApellido.getText();
 		Date fecha = (Date) this.datePicker.getModel().getValue();
 		String fieldDoc = this.textFieldDoc.getText();
+		if(fieldDoc.isEmpty()) {fieldDoc=" ";}
 		Genero fieldGenero = null;
 		if(comboBoxGenero.getSelectedItem().equals("masculino"))fieldGenero=Genero.MASCULINO;
 		if(comboBoxGenero.getSelectedItem().equals("femenino"))fieldGenero=Genero.FEMENINO;
