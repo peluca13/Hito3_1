@@ -1,33 +1,26 @@
 package com.bean.controladores;
 
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.ejb.EJB;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.ejb.EJB;
+
 import javax.naming.NamingException;
 import com.entidades.*;
 import com.servicios.*;
 
-@ManagedBean
-@SessionScoped
-
-
-
 public class ControladorUsuario {
-	
-	public ControladorUsuario() {}
 	
 	@EJB
     private static UsuarioBeanRemote usuRemote;
-    @EJB
+	@EJB
     private static ImcBeanRemote imcRemote;
-    
-    
-    
+	
+	public ControladorUsuario() {}
+	
+	    
  //Login de Usuario
     
     public static boolean loginUsuario(String user, String password) throws NamingException {

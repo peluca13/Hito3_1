@@ -162,9 +162,9 @@ public class ModDatosUsuario extends JFrame implements ActionListener{
 		comboBoxGenero.setBounds(150, 212, 91, 20);
 		contentPane.add(comboBoxGenero);
 		System.out.println(user.getGenero());
-		if(user.getGenero().equals("MASCULINO")) {
+		if(user.getGenero().name().equals("MASCULINO")) {
 			comboBoxGenero.addItem("masculino");
-			
+			comboBoxGenero.addItem("femenino");
 		}else {
 			comboBoxGenero.addItem("femenino");
 			comboBoxGenero.addItem("masculino");
