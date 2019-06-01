@@ -127,9 +127,15 @@ public class ControladorUsuario {
 
     //Obtener Roles
     public static List<Rol> obtenerRoles(){
-    	List<Rol> roles;
+    	List<Rol> roles = new ArrayList<Rol>();
     	roles=usuRemote.verRoles();
     	return roles;
+    }
+    
+    //Obtener rol por nonmbre
+    public static Rol obtenerRol(String nombre) {
+    	Rol rol = usuRemote.verRol(nombre);
+    	return rol;
     }
 	
 
