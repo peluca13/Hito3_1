@@ -147,7 +147,7 @@ public class Usuario implements Serializable{
 	public Rol getRol() {
 		return rol;
 	}
-	public void setRols(Rol rol) {
+	public void setRol(Rol rol) {
 		this.rol=rol;
 	}
 	public String getContrasena() {

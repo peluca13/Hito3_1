@@ -45,6 +45,9 @@ public class Rol implements Serializable {
 	public String getNombre() {
 		return nombre;
 	}
+	public String getmNombre(String nombre) {
+		return nombre;
+	}
 	public void setNombre(String nombre) {
 		this.nombre=nombre;
 	}

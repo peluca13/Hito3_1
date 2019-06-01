@@ -21,6 +21,7 @@ public interface UsuarioBeanRemote {
 	ArrayList<Usuario> obtenerInfoUsuarios(String apellido, String username);
 	boolean ActualizarUsuario(Usuario User);
 	List<Rol> verRoles();
+	Rol verRol(String nombre);
 	boolean ingresarNuevoUsuario(Usuario usuario);
 	
 

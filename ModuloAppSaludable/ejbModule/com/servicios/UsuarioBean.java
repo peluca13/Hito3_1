@@ -234,6 +234,11 @@ public class UsuarioBean implements UsuarioBeanRemote {
     public List<Rol> verRoles(){
     	return rolDao.obtenerTodosRoles();    	 
     }
+    
+    @Override
+    public Rol verRol(String nombre) {
+    	return rolDao.obtenerRol(nombre);
+    }
        
 
 }
